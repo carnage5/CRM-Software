@@ -1,14 +1,16 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import Navbar from './navbar';
 const Home = () => {
     const nav=useNavigate();
     function checklogin(){
         alert("works")
-        nav('menu')
+        nav('login')
     }
     return (  
-        <div>
-            <h1>home</h1>
+        <div className='bg-yellow-500'> 
+            <Navbar/>
+            <h1 >home</h1>
             <button onClick={checklogin}>login</button>
         </div>
     );

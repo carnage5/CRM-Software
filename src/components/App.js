@@ -3,7 +3,7 @@ import {BrowserRouter , Routes , Route} from 'react-router-dom'
 import Login from './login';
 import Home from './home';
 import Menu from './menu';
-import Data_visual from './datavisual';
+import Datavisual from './datavisual';
 import Customer_Data from './customerdata';
 import Report from './generatereport';
 import Queries from './queries';
@@ -16,7 +16,7 @@ function App() {
         <Route path='/' element={<Home/>}/>
         <Route path='login' element={<Login/>}/>
         <Route path='menu' element={<Menu/>}/>
-        <Route path='visual' element={<Data_visual/>}/>
+        <Route path='visual' element={<Datavisual/>}/>
         <Route path='data' element={<Customer_Data/>}/>
         <Route path='report' element={<Report/>}/>
         <Route path='queries' element={<Queries/>}/>

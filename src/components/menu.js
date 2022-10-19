@@ -30,7 +30,7 @@ class Menu extends React.Component {
     render() { 
         return (
             <div>
-                <Navbar/>
+                <Navbar loggedin="true"/>
                 <aside class="w-1/5 float-left my-10  ">
                     <div class="overflow-y-auto py-4 px-3 rounded bg-slate-600 ">
                         <ul class="space-y-5 block ">

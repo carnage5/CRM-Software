@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from './navbar';
 function Login() {
     const nav=useNavigate();
     function checkdetails(event){
         alert("succesful login")
+
         nav('/menu')
     }
     return ( 
         <div>
-            <Navbar/>
+            <Navbar loggedin="hide"/>
        <div class=" mt-24 flex xl:justify-center lg:justify-between justify-center items-center flex-wrap h-full py-10 pb-10 g-6 bg-slate-500">
         <div class=" mb-12 md:mb-0 p">
         <form onSubmit={checkdetails}>

@@ -1,12 +1,29 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from './navbar';
+import axios from 'axios'
 function Login() {
     const nav=useNavigate();
-    function checkdetails(event){
-        alert("succesful login")
+    const [user,setuser]=useState(
+      {
+        email:"",
+        password:""
+      }
+    )
+    function checkdetails(){
+		console.log(user.email,user.password);
 
+        alert("logged in")
         nav('/menu')
+    }
+    function changeval(event){
+      var tempname=event.target.name
+      var tempvalue=event.target.value
+      setuser({
+		...user,
+        [tempname]:tempvalue
+      })
+
     }
     return ( 
         <div>
@@ -16,16 +33,16 @@ function Login() {
         <form onSubmit={checkdetails}>
         <div class=" mb-6 ">
             <input
-              type="text"
+              type="email"
               class="form-control block  px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-              placeholder="Email address"
+              placeholder="Email address" onChange={changeval} name="email" value={user.email}
             />
           </div>
           <div class="mb-6">
             <input
               type="password"
               class="form-control block px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-              placeholder="Password"
+              placeholder="Password" onChange={changeval} name="password" value={user.password} 
             />
           </div>
         <div class="text-center lg:text-left">

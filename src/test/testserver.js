@@ -8,4 +8,4 @@ app.get('/',(req,res,next)=>{
     res.send('welcome ')
 })
 
-app.listen(3001)
+app.listen(3030)

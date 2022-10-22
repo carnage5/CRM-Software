@@ -1,7 +1,7 @@
 import React from 'react';
-import Customerdata from './customerdata';
-import Datavisual from './datavisual';
-import Report from './generatereport';
+import Customerdata from './accounts';
+import Datavisual from './dashboard';
+import Report from './report';
 import Navbar from './navbar';
 class Menu extends React.Component {
     state={

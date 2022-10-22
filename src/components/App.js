@@ -3,9 +3,9 @@ import {BrowserRouter , Routes , Route} from 'react-router-dom'
 import Login from './login';
 import Home from './home';
 import Menu from './menu';
-import Datavisual from './datavisual';
-import Customer_Data from './customerdata';
-import Report from './generatereport';
+import Datavisual from './dashboard';
+import CustomerData from './accounts';
+import Report from './report';
 import Queries from './queries';
 import Refund from './refund';
 function App() {
@@ -17,7 +17,7 @@ function App() {
         <Route path='login' element={<Login/>}/>
         <Route path='menu' element={<Menu/>}/>
         <Route path='visual' element={<Datavisual/>}/>
-        <Route path='data' element={<Customer_Data/>}/>
+        <Route path='data' element={<CustomerData/>}/>
         <Route path='report' element={<Report/>}/>
         <Route path='queries' element={<Queries/>}/>
         <Route path='refund' element={<Refund/>}/>

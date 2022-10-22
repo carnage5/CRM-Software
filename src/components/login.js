@@ -1,20 +1,23 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from './navbar';
-import axios from 'axios'
+import { Uselogin } from './uselogin';
+
 function Login() {
     const nav=useNavigate();
+    const {login,error}=Uselogin()
     const [user,setuser]=useState(
       {
         email:"",
         password:""
       }
     )
-    function checkdetails(){
-		console.log(user.email,user.password);
-
-        alert("logged in")
-        nav('/menu')
+    const checkdetails =async (event)=>{
+        event.preventDefault();
+        //comment the next line out to run
+        await login(user.email,user.password)
+        //uncomment the next line to run
+        //nav('/menu')
     }
     function changeval(event){
       var tempname=event.target.name
@@ -33,7 +36,7 @@ function Login() {
         <form onSubmit={checkdetails}>
         <div class=" mb-6 ">
             <input
-              type="email"
+              type="text"
               class="form-control block  px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
               placeholder="Email address" onChange={changeval} name="email" value={user.email}
             />

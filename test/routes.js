@@ -1,7 +1,7 @@
 //routes and functions to be called from server.js
 const express = require('express')
 const router = express.Router()
-const {loginmodel,qm,rm}=require('./model')
+const {custmodel,loginmodel,qm,rm}=require('./model')
 //get request to test server
 router.get('/',(req,res)=>{
     res.json({message:'welcome to server'})
@@ -357,7 +357,62 @@ router.get('/reportData', (req, res) => {
     })
 })
 
+router.post('/custinsert',async (req,res) => {
+    const {fax,city,email,phone,mobile,region,address,country,entityId,postalCode,companyName,contactName,contactTitle} = req.body
+    try {
+        const testu  =await custmodel.create({fax,city,email,phone,mobile,region,address,country,entityId,postalCode,companyName,contactName,contactTitle})
+        res.status(200).json(testu)
 
+    } catch (error) {
+        res.status(400).json({error: error.message})
+    }
+
+})
+
+router.post('/saleinsert',async (req,res) => {
+    const {freight,entityId,shipCity,shipName,orderDate,shipperId,customerId,employeeId,shipRegion,shipAddress,shipCountry,shippedDate,requiredDate,shipPostalCode} = req.body
+    try {
+        const newsale  =await salesmodel.create({freight,entityId,shipCity,shipName,orderDate,shipperId,customerId,employeeId,shipRegion,shipAddress,shipCountry,shippedDate,requiredDate,shipPostalCode})
+        res.status(200).json(newsale)
+
+    } catch (error) {
+        res.status(400).json({error: error.message})
+    }
+
+})
+
+// router.get('/custdelete',async(req,res) => {
+//     const custs = await custmodel.find({}).sort({createdAt: -1})
+//     res.status(200).json(custs)
+    
+// })
+
+// router.get('/salesdelete',async(req,res) => {
+//     const newsale = await salesmodel.find({}).sort({createdAt: -1})
+//     res.status(200).json(newsale)
+    
+// })
+
+router.delete('/custdelete/:id',async (req,res) => {
+    const {id} = req.params
+    const cust = await custmodel.findOneAndDelete({_id:id})
+    if(!cust)
+    {
+        return res.status(400).json({error:'No such Customer'})
+    }
+    res.status(200).json(cust)    
+})
+
+
+router.delete('/saledelete/:id',async (req,res) => {
+    const {id} = req.params
+    const newsale = await salesmodel.findOneAndDelete({_id:id})
+    if(!newsale)
+    {
+        return res.status(400).json({error:'No such Sale Order'})
+    }
+    res.status(200).json(newsale)    
+})
 
 
 

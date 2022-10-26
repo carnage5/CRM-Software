@@ -10,6 +10,10 @@ import Queries from './queries';
 import Refund from './refund';
 import Notfound from './notfound';
 import { Usercontexthook } from './Usercontexthook';
+import CustForm from './insertcust';
+import Deletecust from './deletecust';
+import SaleForm from './insertsale';
+import Deletesale from './deletesale';
 function App() {
   const {user}=Usercontexthook()
   // if(user)
@@ -26,6 +30,10 @@ function App() {
         <Route path='reports' element={<Report/>}/>
         <Route path='queries' element={<Queries/>}/>
         <Route path='refund' element={<Refund/>}/>
+        <Route path='custinsert' element={<CustForm/>}/>
+        <Route path='custdelete' element={<Deletecust/>}/>
+        <Route path='saleinsert' element={<SaleForm/>}/>
+        <Route path='saledelete' element={<Deletesale/>}/>
         <Route path='*' element={<Notfound/>}/>
       </Routes>
     </BrowserRouter>

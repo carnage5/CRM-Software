@@ -1,0 +1,39 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900");
+      
+        
+.hd {
+    font-size:1cm
+}
+
+
+.create {
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+    background-color:thistle;
+    color:black;
+    margin:2rem auto;
+    border: 2px solid;
+    padding: 2rem;
+    display: inline-block;
+    
+    
+}
+
+.fitems {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.delete {
+    
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+    background-color:thistle;
+    color:black;
+    margin:2rem auto;
+    border: 2px solid;
+    padding: 2rem;
+    display: inline-block;
+
+}

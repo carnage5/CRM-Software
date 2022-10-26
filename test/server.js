@@ -9,12 +9,15 @@ PORT=4000
 MONGO_URL="mongodb+srv://crmlogin:crmlogin@cluster0.yahsp.mongodb.net/?retryWrites=true&w=majority"
 app.use(cors()) //crossorigin middleware to allow access to server from anywhere
 app.use(express.json())//json 
+app.use(express.urlencoded());
+
 app.use((req,res,next)=>{
     console.log(req.path,req.method)
     next()
 })//logs all requests to terminal
 
 app.use(routes) //express router 
+
 mongoose.connect(MONGO_URL) //connect to database , then create middleware server
 .then(()=>{
     app.listen(PORT,()=>console.log("Server running"))

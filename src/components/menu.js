@@ -3,12 +3,16 @@ import Customerdata from './accounts';
 import Datavisual from './dashboard';
 import Report from './report';
 import Navbar from './navbar';
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
 class Menu extends React.Component {
     state={
         seen1:false,
         seen2:false,
         seen3:false
     }
+    
     togglepop1=()=>{
         this.setState({
             seen1: !this.state.seen1
@@ -31,7 +35,26 @@ class Menu extends React.Component {
         return (
             <div>
                 <Navbar loggedin="true"/>
-                <aside class="w-1/5 float-left my-10  ">
+                <div className='container flex flex-wrap mx-5 mt-2 p-5 flex-col md:ml-auto md:mr-auto items-center bg-blue-400 w-1/3'>
+                    <div className='md:ml-auto md:mr-auto flex flex-wrap text-base justify-center space-x-4'>
+                        <Link className='bg-blue-200 w-20 text-center rounded' to='/menu'>Home</Link>
+                        <Link to='/accounts'>Accounts</Link>
+                        <Link to='/dashboard'>Dashboard</Link>
+                        <Link to='/reports'>Reports</Link>
+                        <Link to='/queries'>Queries</Link>
+                        <Link to='/refunds'>Refunds</Link>
+                    </div>
+                </div>
+                
+            </div>
+        );
+    }
+}
+ 
+export default Menu;
+
+/*
+<aside class="w-1/5 float-left my-10  ">
                     <div class="overflow-y-auto py-4 px-3 rounded bg-slate-600 ">
                         <ul class="space-y-5 block ">
                             <li>
@@ -48,8 +71,9 @@ class Menu extends React.Component {
                 </aside>
                 <aside class="w-1/5 float-right my-10">
                     <div class="overflow-y-auto py-4 px-3 rounded bg-slate-100 space-y-2">
-                        <p>Queries</p>
-                        <p>Requests</p>
+                    <Link to='/queries'>Queries</Link>
+                    <p>&nbsp;</p>
+                    <Link to='/refund'>Refunds</Link>
                     </div>
                 </aside>
                 <div>
@@ -61,9 +85,4 @@ class Menu extends React.Component {
                 <div>
                     {this.state.seen3 ? <Customerdata toggle={this.togglepop3}/> : null}
                 </div>
-            </div>
-        );
-    }
-}
- 
-export default Menu;
+                */

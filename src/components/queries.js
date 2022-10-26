@@ -1,13 +1,48 @@
-import React from 'react';
-class Queries extends React.Component {
-    state = {  } 
-    render() { 
-        return (
-            <div>
-                <h1>queries</h1>
-            </div>
-        );
-    }
+import React, { useEffect, useState } from 'react';
+import formatDistanceToNow from 'date-fns/formatDistanceToNow'
+import Navbar from './navbar';
+const SingleQuery = (props) => {
+    return ( 
+        <div className='ml-5 p-6 max-w-sm rounded-lg border border-gray-200 shadow-md bg-blue-200 my-5'>
+            <p className=" font-normal text-gray-700">{props.query.custname}</p>
+            <p className=" font-normal text-gray-700">{props.query.email}</p>
+            <p className="mb-3 font-normal text-gray-700">{props.query.query}</p>
+            <button className='inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-orange-500 rounded-lg hover:bg-orange-300 focus:ring-4 focus:outline-none focus:ring-orange-600'>Respond</button>
+            <p className="mt-3 font-normal text-xs text-gray-700">{formatDistanceToNow(new Date(props.query.createdAt),{addSuffix:true})}</p>
+        </div>
+     );
 }
+ 
+const Queries = () => {
+    const [Query,setQuery]=useState([])
+    const [qDisplay,setqDisplay]=useState(false)
+    useEffect(()=>{
+        const fetchqueries=async()=>{
+            const res=await fetch('http://localhost:4000/queries')
+            const json =await res.json()
+            if(res.ok)
+                setQuery([...json])
+            setqDisplay(true)
+        }
+        let interval=setInterval(() => {
+            fetchqueries()
+            console.log("called")
+        }, 60000);
+        fetchqueries()
+        return ()=>{
+            clearInterval(interval)
+        }
+    },[]);
+    return ( 
+        <div>
+            <Navbar loggedin="true"/>
+            <h1> Queries</h1>
+            {qDisplay ? Query.map((n)=>(
+                <SingleQuery key={n._id} query={n}/>
+            )) : <h1 className='text-center text-xl'>Servers Down</h1>}
+        </div>
+     );
+}
+ 
  
 export default Queries;

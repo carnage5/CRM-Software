@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from './navbar';
-const Home = () => {
+const Startpage = () => {
     return (  
         <div > 
             <Navbar loggedin="false"/>
@@ -230,5 +230,5 @@ const Home = () => {
     );
 }
  
-export default Home;
+export default Startpage;
  

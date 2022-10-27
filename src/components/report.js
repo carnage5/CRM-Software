@@ -1,6 +1,7 @@
 import React from 'react';
 import "./report.css";
-
+import Navbar from './navbar';
+import Menu from './menu';
 class Report extends React.Component {
     constructor(props) {
         super(props)
@@ -38,10 +39,12 @@ class Report extends React.Component {
     render() {
         return (
             <div>
+                 <Navbar loggedin="true"/>
+                 <Menu/>
                 {/* button that sends request to the backend */}
                 <button onClick={this.get_report_data} style = {{"color" : "red"}}>Click Here To View Report</button>
                 {/* the className widgets represents a whole row of widgets */}
-                <div className='widgets'>
+                <div className='flex p-[20px] gap-[20px] '>
                     <div className='widget'>
                         <div className='innerDiv'><b>Most Sold Product:&nbsp;</b>
                             ID:&nbsp;{this.state.msp[0]._id}, {this.state.msp[0].count} Times</div>
@@ -57,7 +60,7 @@ class Report extends React.Component {
                 </div>
                 <br></br>
                 {/* next row of widgets */}
-                <div className='widgets'>
+                <div className='flex p-[20px] gap-[20px]'>
                     <div className='widget'>
                         <div className='innerDiv'><b>Most Valuable Customer:&nbsp;</b>
                             ID:&nbsp;{this.state.mvc[0]._id}, {this.state.mvc[0].count} Orders</div>
@@ -69,7 +72,7 @@ class Report extends React.Component {
                 </div>
                 <br></br>
                 {/* next row of widgets */}
-                <div className='widgets'>
+                <div className='flex p-[20px] gap-[20px]'>
                     <div className='widget'>
                         <div className='innerDiv'><b>Most Frequently Shipped Country:&nbsp;</b>
                             {this.state.mfsc[0]._id}, {this.state.mfsc[0].count} Times</div>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import Navbar from './navbar';
+import Menu from './menu';
 const Singlerefund = (props) => {
     return ( 
         <div className='ml-5 p-6 max-w-sm rounded-lg border border-gray-200 shadow-md bg-blue-200 my-5'>
@@ -38,6 +39,7 @@ const Refund = () => {
     return ( 
         <div>
             <Navbar loggedin="true"/>
+            <Menu/>
             <h1>refund</h1>
             {rDisplay ? refunds.map((r)=>(
                 <Singlerefund key={r._id} refund={r}/>

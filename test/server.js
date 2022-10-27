@@ -9,7 +9,7 @@ PORT=4000
 MONGO_URL="mongodb+srv://crmlogin:crmlogin@cluster0.yahsp.mongodb.net/?retryWrites=true&w=majority"
 app.use(cors()) //crossorigin middleware to allow access to server from anywhere
 app.use(express.json())//json 
-app.use(express.urlencoded());
+app.use(express.urlencoded({extended:true}));
 
 app.use((req,res,next)=>{
     console.log(req.path,req.method)

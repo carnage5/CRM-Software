@@ -8,7 +8,7 @@ const Navbar = (props) => {
     const {user}=Usercontexthook()
     function gohome(){
         if(props.loggedin==="true")
-            nav('/menu')
+            nav('/home')
         else
             nav('/')
     }

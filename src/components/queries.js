@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 import Navbar from './navbar';
+import Menu from './menu';
 const SingleQuery = (props) => {
     return ( 
         <div className='ml-5 p-6 max-w-sm rounded-lg border border-gray-200 shadow-md bg-blue-200 my-5'>
@@ -36,6 +37,7 @@ const Queries = () => {
     return ( 
         <div>
             <Navbar loggedin="true"/>
+            <Menu/>
             <h1> Queries</h1>
             {qDisplay ? Query.map((n)=>(
                 <SingleQuery key={n._id} query={n}/>

@@ -14,6 +14,7 @@ import CustForm from './insertcust';
 import Deletecust from './deletecust';
 import SaleForm from './insertsale';
 import Deletesale from './deletesale';
+import HomeLanding from './landing';
 function App() {
   const {user}=Usercontexthook()
   // if(user)
@@ -24,12 +25,12 @@ function App() {
       <Routes>
         <Route path='/' element={<Startpage/>}/>
         <Route path='login' element={<Login/>}/>
-        <Route path='menu' element={<Menu/>}/>
+        <Route path='home' element={<HomeLanding/>}/>
         <Route path='dashboard' element={<Datavisual/>}/>
         <Route path='accounts' element={<CustomerData/>}/>
         <Route path='reports' element={<Report/>}/>
         <Route path='queries' element={<Queries/>}/>
-        <Route path='refund' element={<Refund/>}/>
+        <Route path='refunds' element={<Refund/>}/>
         <Route path='custinsert' element={<CustForm/>}/>
         <Route path='custdelete' element={<Deletecust/>}/>
         <Route path='saleinsert' element={<SaleForm/>}/>

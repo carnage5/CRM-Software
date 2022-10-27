@@ -90,7 +90,7 @@ router.post('/getData', (req, res) => {
 
             if (results) {
                 console.log("Results found")
-                console.log(results)
+                // console.log(results)
                 res.send({'data' : results})
             }
             else {
@@ -122,7 +122,7 @@ router.post('/getData', (req, res) => {
 
             if (results) {
                 console.log("Results found")
-                console.log(results)
+                // console.log(results)
                 res.send({'data' : results})
             }
             else {
@@ -209,7 +209,7 @@ router.post('/getPieChart', (req, res) => {
                 if (results) {
                     console.log("Data retrieved")
                     results.sort((a, b) => (a.count < b.count) ? 1 : -1)
-                    console.log(results)
+                    // console.log(results)
                     res.send({'groupedData' : results})
                 }
                 else {

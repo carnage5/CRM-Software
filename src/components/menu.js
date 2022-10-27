@@ -34,10 +34,9 @@ class Menu extends React.Component {
     render() { 
         return (
             <div>
-                <Navbar loggedin="true"/>
-                <div className='container flex flex-wrap mx-5 mt-2 p-5 flex-col md:ml-auto md:mr-auto items-center bg-blue-400 w-1/3'>
+                <div className='container flex flex-wrap mx-5 mt-2 p-5 flex-col md:ml-auto md:mr-auto items-center bg-blue-400 w-1/2'>
                     <div className='md:ml-auto md:mr-auto flex flex-wrap text-base justify-center space-x-4'>
-                        <Link className='bg-blue-200 w-20 text-center rounded' to='/menu'>Home</Link>
+                        <Link className='bg-blue-200 w-20 text-center rounded' to='/home'>Home</Link>
                         <Link to='/accounts'>Accounts</Link>
                         <Link to='/dashboard'>Dashboard</Link>
                         <Link to='/reports'>Reports</Link>

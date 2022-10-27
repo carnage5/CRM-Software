@@ -1,9 +1,9 @@
 import React from 'react';
-import './dashboardStyles.css';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { PieChart, Pie, Tooltip } from 'recharts';
-
+import Navbar from './navbar';
+import Menu from './menu';
 class Datavisual extends React.Component {
     constructor(props) {
         super(props);
@@ -95,16 +95,16 @@ class Datavisual extends React.Component {
         let comp;
         if (this.state.dataAvailable == true && this.state.visualizationAvailable == false) {
             comp = ( // this is to create any table from any json data
-                <table className='dataTable'>
+                <table className='border-2 border-black border-solid'>
                     <tr key={"header"}>
                         {Object.keys(this.state.data[0]).map((key) => (
-                            <th>{key}</th>
+                            <th className='border-2 border-black border-solid'>{key}</th>
                         ))}
                     </tr>
                     {this.state.data.map((item) => (
                         <tr key={item._id}>
                             {Object.values(item).map((val) => (
-                                <td>{val}</td>
+                                <td className='border-2 border-black border-solid'>{val}</td>
                             ))}
                         </tr>
                     ))}
@@ -135,7 +135,9 @@ class Datavisual extends React.Component {
         }
         return (
             <div>
-                <div className='divLeft'>
+                <Navbar loggedin="true"/>
+                <Menu/>
+                <div className=' bg-slate-300 float-left w-1/3'>
                     {/* drop down menu for the user to choose which table they want to see */}
                     <form onSubmit={this.handleSubmitDataView}>
                         <select value={this.state.dataChoice} onChange={this.handleChangeData}>
@@ -151,7 +153,7 @@ class Datavisual extends React.Component {
                             <option value="supplier">Supplier</option>
                             <option value="territory">Territory</option>
                         </select><br />
-                        <button className='submitButton' type="submit">Submit Data Request&nbsp;</button>
+                        <button className='bg-sky-300' type="submit">Submit Data Request&nbsp;</button>
                     </form>
                     <br /><br /><br /><br /><br />
                     {/* This is for the user to choose a pie chart */}
@@ -167,14 +169,14 @@ class Datavisual extends React.Component {
                             <option value="pofo">Percentage of fullfilled orders</option>
                             <option value="discount">Percentage of products sold at MRP</option>
                         </select><br />
-                        <button className='submitButton' type="submit">Submit Data Visual Request&nbsp;</button>
+                        <button className='bg-sky-300' type="submit">Submit Data Visual Request&nbsp;</button>
                     </form>
                 </div>
                 {/* This is where the progress bar gets placed on the page */}
-                <div className='belowLeft' style={{ width: 200, height: 200 }}>
+                <div className=' float-left clear-left' style={{ width: 200, height: 200 }}>
                     <CircularProgressbar value={this.state.value_to_be_displayed} text={this.state.value_to_be_displayed.toFixed(2)} />
                 </div>
-                <div className='tableContainer'>
+                <div className='h-[650px] overflow-scroll pr-10 px-10 rounded-md '>
                     {comp}
                 </div>
             </div>

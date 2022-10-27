@@ -44,6 +44,15 @@ router.post('/queries',async (req,res)=>{
     }
     console.log("query recieved") 
  })
+
+router.patch('/queries/:id',async(req,res)=>{
+    const {id} =req.params
+    const queryres=await qm.findOneAndUpdate({_id:id},{...req.body})
+    if(!queryres)
+    res.status(400).json({error:"id doesnt exist"})
+    res.status(200).json({queryres})
+    console.log("query updated")
+}) 
 router.get('/refunds',async(req,res)=>{
     const rlist=await rm.find({valid:true,refunded:false})
     res.status(200).json(rlist)
@@ -61,6 +70,14 @@ router.post('/refunds',async(req,res)=>{
     }catch(error){
         res.status(400).json({error:error.message})
     }
+})
+router.patch('/refunds/:id',async(req,res)=>{
+    const {id} =req.params
+    const refundres=await rm.findOneAndUpdate({_id:id},{...req.body})
+    if(!refundres)
+    res.status(400).json({error:"id doesnt exist"})
+    res.status(200).json({refundres})
+    console.log("refund processed")
 })
 // router.get('/login',async (req,res)=>{
 //     const data=await loginmodel.find({})

@@ -26,7 +26,7 @@ catch(error) {
 }
 })
 router.get('/queries',async(req,res)=>{
-    const qlist=await qm.find({})
+    const qlist=await qm.find({responded:false})
     res.status(200).json(qlist)
     console.log("returned queries")
 

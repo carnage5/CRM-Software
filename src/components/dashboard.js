@@ -176,7 +176,7 @@ class Datavisual extends React.Component {
                 <div className=' float-left clear-left' style={{ width: 200, height: 200 }}>
                     <CircularProgressbar value={this.state.value_to_be_displayed} text={this.state.value_to_be_displayed.toFixed(2)} />
                 </div>
-                <div className='h-[650px] overflow-scroll pr-10 px-10 rounded-md '>
+                <div className='h-[400px] overflow-scroll pr-10 px-10 rounded-md '>
                     {comp}
                 </div>
             </div>

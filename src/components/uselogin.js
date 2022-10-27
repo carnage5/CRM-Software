@@ -23,7 +23,7 @@ export const Uselogin=()=>{
           { localStorage.setItem('user',JSON.stringify(json)) //store user in local storage
             dispatch({type:"LOGIN",payload:json}) //action on login
             alert("logged in")
-            nav('/menu')
+            nav('/home')
         }
     }
     return {login,error}

@@ -1,99 +1,72 @@
-const express =require('express')
-const mongoose=require('mongoose')
-const cors=require('cors');
-const app=express();
-app.use(cors())
-app.use(express.json())
-app.get('/',(req,res)=>res.send("hello"))
+// const express =require('express')
+// const mongoose=require('mongoose')
+// const cors=require('cors');
+// const app=express();
+const nodemailer=require('nodemailer')
+// app.use(cors())
+// app.use(express.json())
+// app.get('/',(req,res)=>res.send("hello"))
+// const contactemail={
+//     host: 'smtp.gmail.com',
+//     port:'465',
+//     secure:true,
+//     auth:{
+        
+//     },
+// }
+// const contact=nodemailer.createTransport(contactemail)
+// contact.verify((error,success)=>{
+//     if(error)
+//     console.log(error)
+//     else
+//     console.log("ready to send mail")
+// })
 
-const schema =mongoose.Schema;
-const queryschema=new schema({
-    custname:{
-        type:String,
-        required:true
-    },
-    email:{
-        type:String,
-        required:true
-    },
-    query:{
-        type:String,
-        required:true
-    },
-    responded:{
-        type:Boolean
-    },
-    response:{
-        type:String
+// app.post('/queryresponse',(req,res)=>{
+//     const mail = {
+//         from:"pes1ug20cs055@pesu.pes.edu",
+//         to:"pes1ug20cs012@pesu.pes.edu", 
+//         subject: 'New Contact Form Submission',
+//         text: `helloworld`,
+//         }
+//         contact.sendMail(mail, (err, data) => {
+//             if (err) {
+//                 res.json({
+//                     status: 'fail',
+//                 })
+//             } else {
+//                 res.json({
+//                     status: 'success',
+//                 })
+//             }
+//         })
+    
+// })
+
+
+
+// app.listen(5000,()=>console.log("server running"))
+
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'crm.company.reply@gmail.com',
+      pass:'arvvssfpaxlqskpu'
     }
-},{timestamps:true})
-
-const refundschema = new schema({
-    custname:{
-        type:String,
-        required: true
-    },
-    orderid:{
-        type:String,
-        required:true
-    },
-    refundamt:{
-        type:Number,
-        required:true
-    },
-    reason:{
-        type:String,
-        required:true
-    },
-    valid:{
-        type:Boolean,
-    },
-    refunded:{
-        type:Boolean,
+  });
+  
+  var mailOptions = {
+    from: 'crm.company.reply@gmail.com',
+    to: 'abishek.deivam@gmail.com',
+    subject: 'Sending Email using Node.js',
+    text: 'That was easy!'
+  };
+  
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
     }
-},{timestamps:true})
-const qm=mongoose.model('queries',queryschema)
-const rm=mongoose.model('refunds',refundschema)
-app.post('/queries',async (req,res)=>{
-    const {custname,email,query}=req.body
-    responded=false
-    response=""
-     console.log(req.body)
-     try {
-        const q=await qm.create({custname,email,query,responded,response})
-        res.status(200).json({ message :"query has been recieved"})
-    }catch(error){
-        res.status(400).json({error:error.message})
-    }
-    console.log("query recieved") 
- })
-app.get('/queries',async(req,res)=>{
-        const qlist=await qm.find({})
-        res.status(200).json(qlist)
-        console.log("returned queries")
-
-})
-
-app.post('/refunds',async(req,res)=>{
-    const {custname,orderid,refundamt,reason}=req.body
-    valid=true
-    refunded=false
-    console.log(req.body)
-    try{
-        const r=await rm.create({custname,orderid,refundamt,reason,valid,refunded})
-        res.status(200).json({message:"refund request has been sent"})
-    }catch(error){
-        res.status(400).json({error:error.message})
-    }
-})
-app.get('/refunds',async(req,res)=>{
-    const rlist=await rm.find({valid:true,refunded:false})
-    res.status(200).json(rlist)
-    console.log("returned refunds")
-
-})
-MONGO_URL="mongodb+srv://crmlogin:crmlogin@cluster0.yahsp.mongodb.net/?retryWrites=true&w=majority"
- mongoose.connect(MONGO_URL) //connect to database , then create middleware server
- .then(()=>{
-     app.listen(5000,()=>console.log("Server running"))
- })
+  });
+  

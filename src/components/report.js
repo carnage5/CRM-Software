@@ -51,7 +51,7 @@ class Report extends React.Component {
                     </div>
                     <div className='widget'>
                         <div className='innerDiv'><b>Total Revenue:&nbsp;</b>
-                            ${this.state.totalRevenue}</div>
+                            ${this.state.totalRevenue.toFixed(2)}</div>
                     </div>
                     <div className='widget'>
                         <div className='innerDiv'><b>Average Product Unit Price:&nbsp;</b>

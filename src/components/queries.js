@@ -58,7 +58,7 @@ const Queries = () => {
         let interval=setInterval(() => {
             fetchqueries()
             console.log("called")
-        }, 1000);
+        }, 60000);
         return ()=>{
             clearInterval(interval)
         }

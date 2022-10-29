@@ -3,15 +3,30 @@ import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 import Navbar from './navbar';
 import Menu from './menu';
 const SingleQuery = (props) => {
-    const [showq,setshowq]=useState(false)
     const [response,setresponse]=useState("")
-    function display(){
-        setshowq(prevshowq=>!prevshowq)
+    const [pr,setpr]=useState(false)
+    const sendmail=async ()=>{
+        const custname=props.query.custname
+         const email=props.query.email
+         const query=props.query.query
+         const response=props.query.response
+         setpr(prevpr=>!prevpr)
+         const mail=await fetch('http://localhost:4000/queryresponses',{
+            method:"POST",
+            headers:{'Content-type':'application/json'},
+            body: JSON.stringify({custname,email,query,response})
+         })
+         const json=await mail.json()
+         if(!mail.ok)
+         console.log(json.error)
+         else
+         alert("mail sent")
     }
     const updateresponse = async ()=>{
         props.query.responded=true
         props.query.response=response
-        const res= await fetch('http://localhost:4000/queries/'+props.query._id,{
+        if(props.query.response.length!==0)
+       { const res= await fetch('http://localhost:4000/queries/'+props.query._id,{
             method:"PATCH",
             headers:{'Content-type':'application/json'},
             body: JSON.stringify(props.query)
@@ -21,24 +36,30 @@ const SingleQuery = (props) => {
         console.log(json.error)
         else
         {alert(props.query._id + " updated")
-            props.refresh()
-    }
+         await sendmail()
+         setpr(false)
+         props.refresh()
+    }}
+    else
+    alert("response field empty")
     }
     const changeres=(event)=>{
-        const name=event.target.name
         const value=event.target.value
         setresponse(value)
     }
     return ( 
         <div>
+        
         <div className='ml-5 p-6 max-w-sm rounded-lg border border-gray-200 shadow-md bg-blue-200 my-5'>
             <p className=" font-normal text-gray-700 ">Query from {props.query.custname}</p>
             <p className='font-normal text-gray-700 mb-2'>{props.query.query}</p>
-            <textarea name={props.query._id} value={response} onChange={changeres} placeholder="type your response here" className='mb-1'></textarea>
+            <textarea required name={props.query._id} value={response} onChange={changeres} placeholder="type your response here" className='mb-1'></textarea>
             <br/>
-            <button className='inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-orange-500 rounded-lg hover:bg-orange-300 focus:ring-4 focus:outline-none focus:ring-orange-600' onClick={updateresponse}>Respond</button>
+            <button disabled={pr} className='inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-orange-500 rounded-lg hover:bg-orange-300 focus:ring-4 focus:outline-none focus:ring-orange-600' onClick={updateresponse}>Respond</button>
+            {pr ? <h1>sending response</h1>: null}
             <p className="mt-3 font-normal text-xs text-gray-700">{formatDistanceToNow(new Date(props.query.createdAt),{addSuffix:true})}</p>
         </div>
+       
         </div>
      );
 }

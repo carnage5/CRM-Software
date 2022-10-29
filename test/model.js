@@ -37,6 +37,10 @@ const refundschema = new schema({
         type:String,
         required: true
     },
+    email:{
+        type:String,
+        required:true 
+    },
     orderid:{
         type:String,
         required:true
@@ -54,6 +58,9 @@ const refundschema = new schema({
     },
     refunded:{
         type:Boolean,
+    },
+    comments:{
+        type:String
     }
 },{timestamps:true})
 const cust_schema = new schema({

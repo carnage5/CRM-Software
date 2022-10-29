@@ -2,6 +2,7 @@
 const express = require('express')
 const router = express.Router()
 const {custmodel,loginmodel,qm,rm}=require('./model')
+const nodemailer=require('nodemailer')
 //get request to test server
 router.get('/',(req,res)=>{
     res.json({message:'welcome to server'})
@@ -60,19 +61,73 @@ router.get('/refunds',async(req,res)=>{
 
 })
 router.post('/refunds',async(req,res)=>{
-    const {custname,orderid,refundamt,reason}=req.body
+    const {custname,email,orderid,refundamt,reason}=req.body
     valid=true
     refunded=false
+    comments=""
     console.log(req.body)
     try{
-        const r=await rm.create({custname,orderid,refundamt,reason,valid,refunded})
+        const r=await rm.create({custname,email,orderid,refundamt,reason,valid,refunded,comments})
         res.status(200).json({message:"refund request has been sent"})
     }catch(error){
         res.status(400).json({error:error.message})
     }
 })
+
+//for email responses
+const transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+      user: 'crm.company.reply@gmail.com',
+      pass:'arvvssfpaxlqskpu'
+    }
+  }); 
+
+router.post('/queryresponses',async (req,res)=>{
+    const {custname,email,query,response}=req.body
+    console.log(req.body)
+    var mailOptions = {
+        from: 'crm.company.reply@gmail.com',
+        to: email,
+        subject: 'Re : '+query,
+        text: 'dear '+ custname +'\n'+ response
+      };
+     transporter.sendMail(mailOptions, function(error, data){
+        if (error) {
+          console.log(error);
+          res.status(400).json({error:error.message})
+          console.log(error.message)
+        } else {
+          console.log('Email sent: ' );
+          res.status(200).json({message:"email sent "})
+        }
+      });
+})
+router.post('/refundresponses',async (req,res)=>{
+    const {custname,orderid,email,comments}=req.body
+    console.log(req.body)
+    var mailOptions = {
+        from: 'crm.company.reply@gmail.com',
+        to: email,
+        subject: 'Re : Refund request on order '+orderid,
+        text: 'dear '+ custname +'\n'+ comments
+      };
+     transporter.sendMail(mailOptions, function(error, data){
+        if (error) {
+          console.log(error);
+          res.status(400).json({error:error.message})
+          console.log(error.message)
+        } else {
+          console.log('Email sent: ' );
+          res.status(200).json({message:"email sent "})
+        }
+      });
+})
+
+
 router.patch('/refunds/:id',async(req,res)=>{
     const {id} =req.params
+    console.log(req.body)
     const refundres=await rm.findOneAndUpdate({_id:id},{...req.body})
     if(!refundres)
     res.status(400).json({error:"id doesnt exist"})

@@ -47,26 +47,25 @@ const nodemailer=require('nodemailer')
 
 // app.listen(5000,()=>console.log("server running"))
 
-// var transporter = nodemailer.createTransport({
-//     service: 'Gmail',
-//     auth: {
-//       user: 'crm.company.reply@gmail.com',
-//       pass:'arvvssfpaxlqskpu'
-//     }
-//   });
+var transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+      user: 'crm.company.reply@gmail.com',
+      pass:'arvvssfpaxlqskpu'
+    }
+  });
   
-//   var mailOptions = {
-//     from: 'crm.company.reply@gmail.com',
-//     to: 'aniruddha.hk02@gmail.com',
-//     subject: 'Sending Email using Node.js',
-//     text: 'Its working'
-//   };
+  var mailOptions = {
+    from: 'crm.company.reply@gmail.com',
+    subject: 'Congrats Winner',
+  };
+  console.log(mailOptions.text)
   
-//   transporter.sendMail(mailOptions, function(error, info){
-//     if (error) {
-//       console.log(error);
-//     } else {
-//       console.log('Email sent: ' + info.response);
-//     }
-//   });
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
   

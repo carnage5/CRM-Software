@@ -7,34 +7,10 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 class Menu extends React.Component {
-    state={
-        seen1:false,
-        seen2:false,
-        seen3:false
-    }
-    
-    togglepop1=()=>{
-        this.setState({
-            seen1: !this.state.seen1
-        })
-        console.log("works 1")
-    }
-    togglepop2=()=>{
-        this.setState({
-            seen2: !this.state.seen2
-        })
-        console.log("works 2")
-    }
-    togglepop3=()=>{
-        this.setState({
-            seen3: !this.state.seen3
-        })
-        console.log("works 3")
-    }
-    render() { 
+    render() {
         return (
             <div>
-                <div className='container flex flex-wrap mx-5 mt-2 p-5 flex-col md:ml-auto md:mr-auto items-center bg-blue-400 w-1/2'>
+                <div className=' container flex flex-wrap rounded-lg mx-5 mt-1 p-5 flex-col md:ml-auto md:mr-auto items-center bg-blue-300 w-1/2'>
                     <div className='md:ml-auto md:mr-auto flex flex-wrap text-base justify-center space-x-4'>
                         <Link className='bg-blue-200 w-20 text-center rounded' to='/home'>Home</Link>
                         <Link to='/accounts'>Accounts</Link>
@@ -44,12 +20,12 @@ class Menu extends React.Component {
                         <Link to='/refunds'>Refunds</Link>
                     </div>
                 </div>
-                
+
             </div>
         );
     }
 }
- 
+
 export default Menu;
 
 /*

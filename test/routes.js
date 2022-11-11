@@ -1,76 +1,75 @@
 //routes and functions to be called from server.js
 const express = require('express')
 const router = express.Router()
-const {custmodel,loginmodel,qm,rm}=require('./model')
-const nodemailer=require('nodemailer')
+const { custmodel, loginmodel, qm, rm } = require('./model')
+const nodemailer = require('nodemailer')
 //get request to test server
-router.get('/',(req,res)=>{
-    res.json({message:'welcome to server'})
+router.get('/', (req, res) => {
+    res.json({ message: 'welcome to server' })
 })
 
 //post login details to server
-router.post('/login',async (req,res)=>{
-    const {email,password}=req.body
-    try{
-    const data=await loginmodel.findOne({email})
-    if(!data){
-        throw Error('Email not registered')
+router.post('/login', async (req, res) => {
+    const { email, password } = req.body
+    try {
+        const data = await loginmodel.findOne({ email })
+        if (!data) {
+            throw Error('Email not registered')
+        }
+        if (data.password != password) {
+            throw Error('incorrect password')
+        }
+        res.status(200).json(data.email)
     }
-    if(data.password != password)
-    {
-        throw Error('incorrect password')
+    catch (error) {
+        res.status(400).json({ error: error.message })
     }
-    res.status(200).json(data.email)
-}
-catch(error) {
-    res.status(400).json({error:error.message})
-}
 })
-router.get('/queries',async(req,res)=>{
-    const qlist=await qm.find({responded:false})
+router.get('/queries', async (req, res) => {
+    const qlist = await qm.find({ responded: false })
     res.status(200).json(qlist)
     console.log("returned queries")
 
 })
-router.post('/queries',async (req,res)=>{
-    const {custname,email,query}=req.body
-    responded=false
-    response=""
-     console.log(req.body)
-     try {
-        const q=await qm.create({custname,email,query,responded,response})
-        res.status(200).json({ message :"query has been recieved"})
-    }catch(error){
-        res.status(400).json({error:error.message})
+router.post('/queries', async (req, res) => {
+    const { custname, email, query } = req.body
+    responded = false
+    response = ""
+    console.log(req.body)
+    try {
+        const q = await qm.create({ custname, email, query, responded, response })
+        res.status(200).json({ message: "query has been recieved" })
+    } catch (error) {
+        res.status(400).json({ error: error.message })
     }
-    console.log("query recieved") 
- })
+    console.log("query recieved")
+})
 
-router.patch('/queries/:id',async(req,res)=>{
-    const {id} =req.params
-    const queryres=await qm.findOneAndUpdate({_id:id},{...req.body})
-    if(!queryres)
-    res.status(400).json({error:"id doesnt exist"})
-    res.status(200).json({queryres})
+router.patch('/queries/:id', async (req, res) => {
+    const { id } = req.params
+    const queryres = await qm.findOneAndUpdate({ _id: id }, { ...req.body })
+    if (!queryres)
+        res.status(400).json({ error: "id doesnt exist" })
+    res.status(200).json({ queryres })
     console.log("query updated")
-}) 
-router.get('/refunds',async(req,res)=>{
-    const rlist=await rm.find({valid:true,refunded:false})
+})
+router.get('/refunds', async (req, res) => {
+    const rlist = await rm.find({ valid: true, refunded: false })
     res.status(200).json(rlist)
     console.log("returned refunds")
 
 })
-router.post('/refunds',async(req,res)=>{
-    const {custname,email,orderid,refundamt,reason}=req.body
-    valid=true
-    refunded=false
-    comments=""
+router.post('/refunds', async (req, res) => {
+    const { custname, email, orderid, refundamt, reason } = req.body
+    valid = true
+    refunded = false
+    comments = ""
     console.log(req.body)
-    try{
-        const r=await rm.create({custname,email,orderid,refundamt,reason,valid,refunded,comments})
-        res.status(200).json({message:"refund request has been sent"})
-    }catch(error){
-        res.status(400).json({error:error.message})
+    try {
+        const r = await rm.create({ custname, email, orderid, refundamt, reason, valid, refunded, comments })
+        res.status(200).json({ message: "refund request has been sent" })
+    } catch (error) {
+        res.status(400).json({ error: error.message })
     }
 })
 
@@ -78,60 +77,62 @@ router.post('/refunds',async(req,res)=>{
 const transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
-      user: 'crm.company.reply@gmail.com',
-      pass:'arvvssfpaxlqskpu'
+        user: 'crm.company.reply@gmail.com',
+        pass: 'arvvssfpaxlqskpu'
     }
-  }); 
+});
 
-router.post('/queryresponses',async (req,res)=>{
-    const {custname,email,query,response}=req.body
+router.post('/queryresponses', async (req, res) => {
+    const { custname, email, query, response } = req.body
     console.log(req.body)
     var mailOptions = {
         from: 'crm.company.reply@gmail.com',
         to: email,
-        subject: 'Re : '+query,
-        text: 'dear '+ custname +'\n'+ response
-      };
-     transporter.sendMail(mailOptions, function(error, data){
+        subject: 'Re : ' + query,
+        text: 'dear ' + custname + '\n' + response
+    };
+    transporter.sendMail(mailOptions, function (error, data) {
         if (error) {
-          console.log(error);
-          res.status(400).json({error:error.message})
-          console.log(error.message)
+            console.log(error);
+            res.status(400).json({ error: error.message })
+            console.log(error.message)
         } else {
-          console.log('Email sent: ' );
-          res.status(200).json({message:"email sent "})
+            console.log('Email sent: ');
+            res.status(200).json({ message: "email sent " })
         }
-      });
+    });
 })
-router.post('/refundresponses',async (req,res)=>{
-    const {custname,orderid,email,comments}=req.body
+router.post('/refundresponses', async (req, res) => {
+    const { custname, orderid, email, comments } = req.body
     console.log(req.body)
     var mailOptions = {
         from: 'crm.company.reply@gmail.com',
         to: email,
-        subject: 'Re : Refund request on order '+orderid,
-        text: 'dear '+ custname +'\n'+ comments
-      };
-     transporter.sendMail(mailOptions, function(error, data){
+        subject: 'Re : Refund request on order ' + orderid,
+        text: 'dear ' + custname + '\n' + comments
+    };
+    transporter.sendMail(mailOptions, function (error, data) {
         if (error) {
-          console.log(error);
-          res.status(400).json({error:error.message})
-          console.log(error.message)
+            console.log(error);
+            res.status(400).json({ error: error.message })
+            console.log(error.message)
         } else {
-          console.log('Email sent: ' );
-          res.status(200).json({message:"email sent "})
+            console.log('Email sent: ');
+            res.status(200).json({ message: "email sent " })
         }
-      });
+    });
 })
 
 
-router.patch('/refunds/:id',async(req,res)=>{
-    const {id} =req.params
+router.patch('/refunds/:id', async (req, res) => {
+    const { id } = req.params
     console.log(req.body)
-    const refundres=await rm.findOneAndUpdate({_id:id},{...req.body})
-    if(!refundres)
-    res.status(400).json({error:"id doesnt exist"})
-    res.status(200).json({refundres})
+    const refundres = await rm.findOneAndUpdate({ _id: id }, { ...req.body })
+    if (!refundres)
+    {
+        res.status(400).json({ error: "id doesnt exist" })
+    }
+    res.status(200).json({ refundres })
     console.log("refund processed")
 })
 // router.get('/login',async (req,res)=>{
@@ -163,11 +164,11 @@ router.post('/getData', (req, res) => {
             if (results) {
                 console.log("Results found")
                 // console.log(results)
-                res.send({'data' : results})
+                res.send({ 'data': results })
             }
             else {
                 console.log("Something went wrong with the database")
-                res.send({'message' : 'internal server error'})
+                res.send({ 'message': 'internal server error' })
             }
 
             client.close();
@@ -195,11 +196,11 @@ router.post('/getData', (req, res) => {
             if (results) {
                 console.log("Results found")
                 // console.log(results)
-                res.send({'data' : results})
+                res.send({ 'data': results })
             }
             else {
                 console.log("Something went wrong with the database")
-                res.send({'message' : 'internal server error'})
+                res.send({ 'message': 'internal server error' })
             }
 
             client.close();
@@ -218,7 +219,7 @@ router.post('/dataVisReq', (req, res) => {
         // pofo is percentage of fulfilled orders
         MongoClient.connect(CONNECTION_URL, (err, client) => {
             if (err) throw err
-            
+
             var dbo = client.db('CRM_Data')
             dbo.collection('salesOrder').find({}).toArray(function (err, results) {
                 if (err) throw err;
@@ -230,7 +231,7 @@ router.post('/dataVisReq', (req, res) => {
                     })
                     console.log(percentage.length)
                     percentage = (percentage.length / results.length) * 100;
-                    res.send({'val' : 100 - percentage})
+                    res.send({ 'val': 100 - percentage })
                 }
                 else {
                     console.log("Database error")
@@ -246,7 +247,7 @@ router.post('/dataVisReq', (req, res) => {
             var dbo = client.db('CRM_Data')
             dbo.collection('orderDetail').find({}).toArray(function (err, results) {
                 if (err) throw err;
-                
+
                 if (results) {
                     console.log("Data retrieved from database")
                     var percentage = results.filter(function (element) {
@@ -254,7 +255,7 @@ router.post('/dataVisReq', (req, res) => {
                     })
                     console.log(percentage.length)
                     percentage = (percentage.length / results.length) * 100;
-                    res.send({'val' : percentage})
+                    res.send({ 'val': percentage })
                 }
                 else {
                     console.log("Database error")
@@ -282,7 +283,7 @@ router.post('/getPieChart', (req, res) => {
                     console.log("Data retrieved")
                     results.sort((a, b) => (a.count < b.count) ? 1 : -1)
                     // console.log(results)
-                    res.send({'groupedData' : results})
+                    res.send({ 'groupedData': results })
                 }
                 else {
                     console.log("Database error")
@@ -301,7 +302,7 @@ router.post('/getPieChart', (req, res) => {
                 if (results) {
                     console.log("Data retrieved")
                     results.sort((a, b) => (a.count < b.count) ? 1 : -1)
-                    res.send({'groupedData' : results})
+                    res.send({ 'groupedData': results })
                 }
                 else {
                     console.log("Database error")
@@ -318,8 +319,8 @@ router.get('/reportData', (req, res) => {
 
     console.log("Inside /reportData")
     resObj = { // this object will finally be sent to the frontend when everything is ready
-        mfsc : [], // most frequently shipped country
-        totalRevenue : 0,
+        mfsc: [], // most frequently shipped country
+        totalRevenue: 0,
         avgUP: 0, // average unit price
         mvc: [], // most valuable customers
         mve: [], // most valuable employees
@@ -429,26 +430,26 @@ router.get('/reportData', (req, res) => {
     })
 })
 
-router.post('/custinsert',async (req,res) => {
-    const {fax,city,email,phone,mobile,region,address,country,entityId,postalCode,companyName,contactName,contactTitle} = req.body
+router.post('/custinsert', async (req, res) => {
+    const { fax, city, email, phone, mobile, region, address, country, entityId, postalCode, companyName, contactName, contactTitle } = req.body
     try {
-        const testu  =await custmodel.create({fax,city,email,phone,mobile,region,address,country,entityId,postalCode,companyName,contactName,contactTitle})
+        const testu = await custmodel.create({ fax, city, email, phone, mobile, region, address, country, entityId, postalCode, companyName, contactName, contactTitle })
         res.status(200).json(testu)
 
     } catch (error) {
-        res.status(400).json({error: error.message})
+        res.status(400).json({ error: error.message })
     }
 
 })
 
-router.post('/saleinsert',async (req,res) => {
-    const {freight,entityId,shipCity,shipName,orderDate,shipperId,customerId,employeeId,shipRegion,shipAddress,shipCountry,shippedDate,requiredDate,shipPostalCode} = req.body
+router.post('/saleinsert', async (req, res) => {
+    const { freight, entityId, shipCity, shipName, orderDate, shipperId, customerId, employeeId, shipRegion, shipAddress, shipCountry, shippedDate, requiredDate, shipPostalCode } = req.body
     try {
-        const newsale  =await salesmodel.create({freight,entityId,shipCity,shipName,orderDate,shipperId,customerId,employeeId,shipRegion,shipAddress,shipCountry,shippedDate,requiredDate,shipPostalCode})
+        const newsale = await salesmodel.create({ freight, entityId, shipCity, shipName, orderDate, shipperId, customerId, employeeId, shipRegion, shipAddress, shipCountry, shippedDate, requiredDate, shipPostalCode })
         res.status(200).json(newsale)
 
     } catch (error) {
-        res.status(400).json({error: error.message})
+        res.status(400).json({ error: error.message })
     }
 
 })
@@ -456,34 +457,32 @@ router.post('/saleinsert',async (req,res) => {
 // router.get('/custdelete',async(req,res) => {
 //     const custs = await custmodel.find({}).sort({createdAt: -1})
 //     res.status(200).json(custs)
-    
+
 // })
 
 // router.get('/salesdelete',async(req,res) => {
 //     const newsale = await salesmodel.find({}).sort({createdAt: -1})
 //     res.status(200).json(newsale)
-    
+
 // })
 
-router.delete('/custdelete/:id',async (req,res) => {
-    const {id} = req.params
-    const cust = await custmodel.findOneAndDelete({_id:id})
-    if(!cust)
-    {
-        return res.status(400).json({error:'No such Customer'})
+router.delete('/custdelete/:id', async (req, res) => {
+    const { id } = req.params
+    const cust = await custmodel.findOneAndDelete({ _id: id })
+    if (!cust) {
+        return res.status(400).json({ error: 'No such Customer' })
     }
-    res.status(200).json(cust)    
+    res.status(200).json(cust)
 })
 
 
-router.delete('/saledelete/:id',async (req,res) => {
-    const {id} = req.params
-    const newsale = await salesmodel.findOneAndDelete({_id:id})
-    if(!newsale)
-    {
-        return res.status(400).json({error:'No such Sale Order'})
+router.delete('/saledelete/:id', async (req, res) => {
+    const { id } = req.params
+    const newsale = await salesmodel.findOneAndDelete({ _id: id })
+    if (!newsale) {
+        return res.status(400).json({ error: 'No such Sale Order' })
     }
-    res.status(200).json(newsale)    
+    res.status(200).json(newsale)
 })
 
 
@@ -498,7 +497,7 @@ router.delete('/saledelete/:id',async (req,res) => {
 
 
 
-module.exports=router
+module.exports = router
 /*
 useful for adding credentials to database
 router.post('/login',async (req,res)=>{

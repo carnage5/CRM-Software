@@ -42,7 +42,7 @@ class Report extends React.Component {
                  <Navbar loggedin="true"/>
                  <Menu/>
                 {/* button that sends request to the backend */}
-                <button onClick={this.get_report_data} style = {{"color" : "red"}}>Click Here To View Report</button>
+                <button onClick={this.get_report_data} className='rounded-md bg-slate-300 ml-5'>&nbsp;Click Here To View Report&nbsp;</button>
                 {/* the className widgets represents a whole row of widgets */}
                 <div className='flex p-[20px] gap-[20px] '>
                     <div className='widget'>

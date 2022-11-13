@@ -154,57 +154,40 @@ router.post('/getData', (req, res) => {
     MongoClient.connect(CONNECTION_URL, (err, client) => {
         if (err) throw err
         console.log("connected")
+        if (req.body.dataChoice == 'unfulfilled') {
+            var dbo = client.db('CRM_Data')
+            dbo.collection('salesOrder').find({shippedDate: null}).project({_id: 0}).toArray(function (err, results) {
+                if (err) throw err
+                if (results) {
+                    console.log("Results found")
+                    // console.log(results)
+                    res.send({data : results})
+                }
+                else {
+                    console.log("Database error")
+                }
+                client.close()
+            })
+        }
+        else {
+            var collectionName = req.body.dataChoice // so that we can access the collection the user chose
+            var dbo = client.db('CRM_Data')
+            dbo.collection(collectionName).find({}).project({_id: 0}).toArray(function (err, results) {
+                if (err) throw err
 
-        var collectionName = req.body.dataChoice // so that we can access the collection the user chose
+                if (results) {
+                    console.log("Results found")
+                    // console.log(results)
+                    res.send({ 'data': results })
+                }
+                else {
+                    console.log("Something went wrong with the database")
+                    res.send({ 'message': 'internal server error' })
+                }
 
-        var dbo = client.db('CRM_Data')
-        dbo.collection(collectionName).find({}).toArray(function (err, results) {
-            if (err) throw err
-
-            if (results) {
-                console.log("Results found")
-                // console.log(results)
-                res.send({ 'data': results })
-            }
-            else {
-                console.log("Something went wrong with the database")
-                res.send({ 'message': 'internal server error' })
-            }
-
-            client.close();
-        })
-    })
-})
-
-router.post('/getData', (req, res) => {
-    // in this function, the user requests for data in a particular collection
-    // req.body has an element dataChoice, which holds the name of the required collection
-
-    console.log("inside getData")
-    console.log("req.body in /getData", req.body)
-
-    MongoClient.connect(CONNECTION_URL, (err, client) => {
-        if (err) throw err
-        console.log("connected")
-
-        var collectionName = req.body.dataChoice // so that we can access the collection the user chose
-
-        var dbo = client.db('CRM_Data')
-        dbo.collection(collectionName).find({}).toArray(function (err, results) {
-            if (err) throw err
-
-            if (results) {
-                console.log("Results found")
-                // console.log(results)
-                res.send({ 'data': results })
-            }
-            else {
-                console.log("Something went wrong with the database")
-                res.send({ 'message': 'internal server error' })
-            }
-
-            client.close();
-        })
+                client.close();
+            })            
+        }
     })
 })
 
@@ -283,6 +266,10 @@ router.post('/getPieChart', (req, res) => {
                     console.log("Data retrieved")
                     results.sort((a, b) => (a.count < b.count) ? 1 : -1)
                     // console.log(results)
+                    results.forEach(element => {
+                        element.name = "Employee ID " + element._id;
+                        delete element._id;
+                    })
                     res.send({ 'groupedData': results })
                 }
                 else {
@@ -302,6 +289,11 @@ router.post('/getPieChart', (req, res) => {
                 if (results) {
                     console.log("Data retrieved")
                     results.sort((a, b) => (a.count < b.count) ? 1 : -1)
+                    results.forEach(element => {
+                        element.name = "Customer ID " + element._id;
+                        delete element._id;
+                    })
+                    // console.log(results)
                     res.send({ 'groupedData': results })
                 }
                 else {
@@ -485,16 +477,35 @@ router.delete('/saledelete/:id', async (req, res) => {
     res.status(200).json(newsale)
 })
 
-
-
-
-
-
-
-
-
-
-
+router.post('/filterOrderDetails', (req, res) => {
+    // req.body.custId contains the customer id for filtering, default value is all
+    console.log("Inside filterOrderDetails")
+    console.log(req.body.custId)
+    MongoClient.connect(CONNECTION_URL, function (err, client) {
+        var filter;
+        if (req.body.custId == 'all') {
+            filter = {};
+        }
+        else {
+            filter = {customerId: parseInt(req.body.custId, 10)}
+        }
+        console.log("Filter is ", filter)
+        if (err) throw err;
+        var dbo = client.db('CRM_Data')
+        dbo.collection('salesOrder').find(filter).project({_id: 0}).toArray(function (err, results) {
+            if (err) throw err
+            if (results) {
+                console.log("Results Found")
+                console.log(results)
+                res.send({data : results})
+            }
+            else {
+                console.log('Incorrect Customer Id')
+            }
+            client.close()
+        })
+    })
+})
 
 
 module.exports = router

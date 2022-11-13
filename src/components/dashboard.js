@@ -15,14 +15,24 @@ class Datavisual extends React.Component {
             dataViewChoice: 'none', // this is about which progress bar the user wants to view (pofo is percentage of fullfilled orders)
             value_to_be_displayed: 0, // this is the value for the progress bar
             pieChart: 'emp', // this is changed based on which pie chart the user wants to see
-            pieChartData: [] // this holds the data that will be visualized as pie chart later
+            pieChartData: [], // this holds the data that will be visualized as pie chart later
+            filter: false // to check if a filter needs to be appiled
         };
     }
 
     handleChangeData = (event) => { // function that updates dataChoice
-        this.setState({
-            dataChoice: event.target.value
-        });
+        if (event.target.value == 'salesOrder') {
+            this.setState({
+                dataChoice: event.target.value,
+                filter: true
+            })
+        }
+        else {
+            this.setState({
+                filter: false,
+                dataChoice: event.target.value
+            })
+        }
     }
 
     handleSubmitDataView = (event) => { // function that makes a request to the backend to get the required table
@@ -46,7 +56,7 @@ class Datavisual extends React.Component {
     handleChangeView = (event) => { // function that updated dataViewChoice
         this.setState({
             dataViewChoice: event.target.value
-        })
+        });
     }
 
     handleSubmitDataVis = (event) => { // function that makes a request to the backend 
@@ -91,25 +101,70 @@ class Datavisual extends React.Component {
         })
     }
 
+    filterOrderDetails = (event) => {
+        event.preventDefault();
+        console.log(this.CustIdRef.value)
+        fetch('http://localhost:4000/filterOrderDetails', {
+            method: "POST",
+            body: JSON.stringify({
+                custId: this.CustIdRef.value
+            }),
+            headers: { 'Content-Type': 'Application/json' }
+        }).then(resp => resp.json()).then(resp => {
+            console.log(resp.data) // data is the required table which is a list of objects for now
+            this.setState({
+                data: resp.data,
+                dataAvailable: true,
+                visualizationAvailable: false
+            })
+        })
+    }
+
     render() {
+        let filter_comp;
+        if (this.state.filter == true) {
+            console.log("Filter is set to true")
+            filter_comp = (
+                <div>
+                    <form onSubmit={this.filterOrderDetails}>
+                        Customer ID:&nbsp;<input type = "text" defaultValue = "all" ref = {(e) => this.CustIdRef = e}></input>
+                        <br /><input type = "submit" value = "Filter"></input>
+                    </form>
+                </div>
+            );
+        }
+        else {
+            filter_comp = <div></div>
+            console.log("Filter is set to false")
+        }
         let comp;
         if (this.state.dataAvailable == true && this.state.visualizationAvailable == false) {
-            comp = ( // this is to create any table from any json data
-                <table className='border-2 border-black border-solid'>
-                    <tr key={"header"}>
-                        {Object.keys(this.state.data[0]).map((key) => (
-                            <th className='border-2 border-black border-solid'>{key}</th>
-                        ))}
-                    </tr>
-                    {this.state.data.map((item) => (
-                        <tr key={item._id}>
-                            {Object.values(item).map((val) => (
-                                <td className='border-2 border-black border-solid'>{val}</td>
+            if (this.state.data.length == 0) {
+                console.log("Empty data")
+                comp = (
+                <div>
+                    <h1>Invalid Customer ID</h1>
+                </div>
+                );
+            }
+            else {
+                comp = ( // this is to create any table from any json data
+                    <table className='border-2 border-black border-solid'>
+                        <tr key={"header"}>
+                            {Object.keys(this.state.data[0]).map((key) => (
+                                <th className='border-2 border-black border-solid'>{key}</th>
                             ))}
                         </tr>
-                    ))}
-                </table>
-            )
+                        {this.state.data.map((item) => (
+                            <tr key={item._id}>
+                                {Object.values(item).map((val) => (
+                                    <td className='border-2 border-black border-solid'>{val}</td>
+                                ))}
+                            </tr>
+                        ))}
+                    </table>
+                )
+            }
         }
         else if (this.state.dataAvailable == false && this.state.visualizationAvailable == true) {
             comp = ( // pie chart
@@ -152,14 +207,17 @@ class Datavisual extends React.Component {
                             <option value="shipper">Shipper</option>
                             <option value="supplier">Supplier</option>
                             <option value="territory">Territory</option>
+                            <option value="unfulfilled">Unfulfilled Orders</option>
                         </select><br />
                         <button className='bg-sky-300' type="submit">Submit Data Request&nbsp;</button>
                     </form>
-                    <br /><br /><br /><br /><br />
+                    <br /><br />
+                    {filter_comp}
+                    <br /><br /><br />
                     {/* This is for the user to choose a pie chart */}
                     <div onChange={this.getPieChart}>
-                        <input type="radio" value="emp" name="selectPie" /> Group by Employee ID<br />
-                        <input type="radio" value="cust" name="selectPie" /> Group by Customer ID
+                        <input type="radio" value="emp" name="selectPie" /> View Top Employees<br />
+                        <input type="radio" value="cust" name="selectPie" /> View Top Customers
                     </div>
                     <br /><br /><br /><br /><br />
                     {/* This is for the user to choose a percentage to view as a circular progress bar */}

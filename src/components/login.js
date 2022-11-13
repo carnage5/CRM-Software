@@ -31,25 +31,25 @@ function Login() {
     return ( 
         <div>
             <Navbar loggedin="hide"/>
-       <div class=" mt-24 flex justify-center items-center flex-wrap h-full py-10 pb-10  bg-red-500">
-        <div class=" mb-12 md:mb-0 p-5 bg-pink-200">
+       <div className=" mt-40 flex justify-center items-center flex-wrap h-full py-10  bg-slate-500">
+        <div className=" p-10 rounded-2xl bg-slate-200">
         <form onSubmit={checkdetails}>
-        <div class=" mb-6  ">
+        <div className=" mb-6  ">
             <input
               type="text"
-              class="form-control block  px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+              className="form-control block  px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-xl transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-slate-700 focus:outline-none"
               placeholder="Email address" onChange={changeval} name="email" value={user.email}
             />
           </div>
-          <div class="mb-6">
+          <div className="mb-6">
             <input
               type="password"
-              class="form-control block px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+              className="form-control block px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-xl transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-slate-700 focus:outline-none"
               placeholder="Password" onChange={changeval} name="password" value={user.password} 
             />
           </div>
-        <div class="text-center lg:text-left">
-        <input type="submit" class="inline-block px-7 py-3 bg-orange-600 rounded hover: shadow-lg focus:bg-orange-400 text-white "/>
+        <div className="text-center lg:text-left">
+        <input type="submit" className="inline-block px-7 py-3 bg-slate-700 text-white rounded-md hover: shadow-lg focus:bg-slate-500 "/>
         </div>
         </form>
         </div>

@@ -61,19 +61,19 @@ const Singlerefund = (props) => {
             alert("response field is empty")
     }
     return (
-        <div className='xl:w-[30%] md:w-1/2 p-4 mx-3 rounded-lg border  border-gray-200 shadow-md bg-blue-200 my-3 hover:scale-[1.05] '>
+        <div className='xl:w-[30%] md:w-1/2 p-4 mx-3 rounded-lg border max-h-56 border-gray-200 shadow-md bg-slate-50 my-3 overflow-y-auto hover:scale-[1.05]  '>
             <p className=" font-normal text-gray-700"> name - {props.refund.custname}</p>
             <p className=" font-normal text-gray-700"> order id - {props.refund.orderid}</p>
             <p className=" font-normal text-gray-700"> amount - {props.refund.refundamt}</p>
             <p className="mb-3 font-normal text-gray-700">reason -{props.refund.reason}</p>
-            <button disabled={pr} name="accept" className='inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-orange-500 rounded-lg hover:bg-orange-300 focus:ring-4 focus:outline-none focus:ring-orange-600' onClick={processrefund}>Process</button>
-            <button disabled={pr} className=' ml-2 inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-orange-500 rounded-lg hover:bg-orange-300 focus:ring-4 focus:outline-none focus:ring-orange-600' onClick={showreason}>Reject</button>
+            <button disabled={pr} name="accept" className='inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-slate-700 rounded-lg hover:bg-slate-300 ' onClick={processrefund}>Process</button>
+            <button disabled={pr} className=' ml-2 inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-slate-700 rounded-lg hover:bg-slate-300 ' onClick={showreason}>Reject</button>
             <br />
-            {showr ? <textarea class="bg-slate-100 mt-2 rounded-lg px-2 py-3 placeholder:text-gray-300 w-[60%] lg:w-[60%] focus:border focus:outline-none focus:border-blue-500" name={props.refund._id} value={response} onChange={changeres} placeholder='Reason to reject' /> : null}
+            {showr ? <textarea className="bg-slate-100 mt-2 rounded-lg px-2 py-3 placeholder:text-gray-400 w-[60%] lg:w-[60%]  border border-1 border-slate-500 focus:border focus:outline-none  focus:border-slate-600" name={props.refund._id} value={response} onChange={changeres} placeholder='Reason to reject' /> : null}
             <br />
-            {showr ? <button disabled={pr} name="reject" className='w-[20%] inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-orange-500 rounded-lg hover:bg-orange-300 focus:ring-4 focus:outline-none focus:ring-orange-600' onClick={processrefund}>Send</button> : null}
+            {showr ? <button disabled={pr} name="reject" className='w-[20%] inline-flex justify-center py-2 text-sm font-medium text-center text-white bg-slate-700 rounded-lg hover:bg-slate-300' onClick={processrefund}>Send</button> : null}
             {pr ? <h1>sending response</h1> : null}
-            <p className="mt-3 font-normal text-xs text-gray-700">{formatDistanceToNow(new Date(props.refund.createdAt), { addSuffix: true })}</p>
+            <p className="mt-1 font-normal text-xs text-gray-700">{formatDistanceToNow(new Date(props.refund.createdAt), { addSuffix: true })}</p>
         </div>
     );
 }
@@ -101,17 +101,15 @@ const Refund = () => {
     return (
         <div>
             <Navbar loggedin="true" />
-            <Menu />
+            <Menu refunds="true"/>
             <h1>refund</h1>
-            <div class="container px-5 py-5 mx-auto ">
-                <div class="flex flex-wrap justify-center ">
-                    <div className='xl:w-[30%] md:w-1/2 p-4 mx-3 rounded-lg border border-gray-200 shadow-md bg-blue-200 my-3 '>
-                        <p className=" font-normal text-gray-700"> Refunds Processed</p>
-                        <p className=" font-normal text-gray-700"> Refunds to Process</p>
-                    </div>
+            <div className="container px-5 py-5 mx-auto ">
+                <div className="flex flex-wrap justify-center ">
                     {rDisplay ? refunds.map((r) => (
                         <Singlerefund key={r._id} refund={r} refresh={fetchrefunds} />
-                    )) : <h1 className='text-center text-red-500 text-xl'>Servers down</h1>}
+                    )) : <div className='xl:w-[30%] md:w-1/2 p-4 mx-3 rounded-lg border max-h-56 border-gray-200 shadow-md bg-slate-50 my-3 overflow-y-hidden hover:scale-[1.05] '>
+                    <p className=" font-xl text-gray-700">Servers Down</p>  
+                </div> }
                 </div>
             </div>
 

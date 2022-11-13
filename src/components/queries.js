@@ -49,13 +49,15 @@ const SingleQuery = (props) => {
         setresponse(value)
     }
     return (
-        <div className='xl:w-[30%] md:w-1/2 p-4 mx-3 rounded-lg border border-gray-200 shadow-md bg-slate-50 my-3 hover:scale-[1.05]'>
-            <p className=" font-normal text-gray-700 ">Query from {props.query.custname}</p>
+        <div className='xl:w-[30%] md:w-1/2 p-4 mx-3 rounded-lg max-h-80 overflow-y-auto border border-grey-200 shadow-md bg-slate-50 my-3 hover:scale-[1.05]'>
+            <p className="mt-1 font-normal text-gray-700 ">Query from {props.query.custname}</p>
             <p className=" font-normal text-gray-700 ">{props.query.email}</p>
+            <div className='my-2 w-full max-h-[20%] overflow-y-hidden hover:overflow-y-auto'>
             <p className='font-normal text-gray-700 mb-2'>{props.query.query}</p>
-            <textarea required className="bg-slate-100 my-2 rounded-lg px-2 py-3 placeholder:text-gray-400 w-[60%] lg:w-[60%] border border-1 border-slate-500 focus:border focus:outline-none focus:border-blue-500" name={props.query._id} value={response} onChange={changeres} placeholder="type your response here" ></textarea>
+            </div>
+            <textarea required className="bg-slate-100 rounded-lg px-2 py-3 placeholder:text-gray-400 w-[60%] lg:w-[60%] border border-1 border-slate-500 focus:border focus:outline-none focus:border-slate-600" name={props.query._id} value={response} onChange={changeres} placeholder="type your response here" ></textarea>
             <br />
-            <button disabled={pr} className='inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-slate-700 rounded-lg hover:bg-orange-300 focus:ring-4 focus:outline-none focus:ring-orange-600' onClick={updateresponse}>Respond</button>
+            <button disabled={pr} className='inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-slate-700 rounded-lg hover:bg-slate-300' onClick={updateresponse}>Respond</button>
             {pr ? <h1>sending response</h1> : null}
             <p className="mt-3 font-normal text-xs text-gray-700">{formatDistanceToNow(new Date(props.query.createdAt), { addSuffix: true })}</p>
         </div>
@@ -85,13 +87,16 @@ const Queries = () => {
     return (
         <div>
             <Navbar loggedin="true" />
-            <Menu />
+            <Menu queries="true"/>
             <h1> Queries</h1>
-            <div class="container px-5 py-5 mx-auto">
-                <div class="flex flex-wrap justify-center ">
+            <div className="container px-5 py-5 mx-auto ">
+                <div className="flex flex-wrap justify-center">
                     {qDisplay ? Query.map((n) => (
                         <SingleQuery key={n._id} query={n} refresh={fetchqueries} />
-                    )) : <h1 className='text-center text-xl'>Servers Down</h1>}
+                    )) :  <div className='xl:w-[30%] md:w-1/2 p-4 mx-3 rounded-lg border max-h-56 border-gray-200 shadow-md bg-slate-50 my-3 overflow-y-hidden hover:scale-[1.05] '>
+                    <p className=" font-xl text-gray-700">Servers Down</p>
+                  
+                </div>}
                 </div>
             </div>
         </div>

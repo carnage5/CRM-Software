@@ -127,8 +127,9 @@ class Datavisual extends React.Component {
             filter_comp = (
                 <div>
                     <form onSubmit={this.filterOrderDetails}>
-                        Customer ID:&nbsp;<input type = "text" defaultValue = "all" ref = {(e) => this.CustIdRef = e} className='rounded-md'></input>
-                        <br /><input type = "submit" value = " Filter " className='rounded-md bg-sky-300'></input>
+                        Customer ID:&nbsp;<input type = "text" defaultValue = "all" ref = {(e) => this.CustIdRef = e} className="bg-slate-100 rounded-lg px-2 py-1 placeholder:text-gray-600 w-[80%] lg:w-[60%]  border border-slate-400 focus:border  focus:outline-none focus:border-slate-700"
+></input>
+                        <br /><button type = "submit" className='mt-2 inline-flex justify-center py-2 px-1 w-20 text-sm font-medium text-center text-white bg-slate-700 rounded-lg hover:bg-slate-300'>Filter</button>
                     </form>
                 </div>
             );
@@ -191,7 +192,7 @@ class Datavisual extends React.Component {
         return (
             <div>
                 <Navbar loggedin="true"/>
-                <Menu/>
+                <Menu dashboard="true" />
                 <br/>
                 <aside className='mx-3 justify-center'>
                 <div className=' bg-slate-300 float-left w-1/4 rounded-xl'>
@@ -199,7 +200,7 @@ class Datavisual extends React.Component {
                     {/* drop down menu for the user to choose which table they want to see */}
                     <aside className='mx-3 justify-center'>
                     <form onSubmit={this.handleSubmitDataView}>
-                        <select value={this.state.dataChoice} onChange={this.handleChangeData} className='rounded-md'>
+                        <select value={this.state.dataChoice} onChange={this.handleChangeData} class="bg-slate-100 rounded-lg px-2 py-1 w-[80%] lg:w-[60%] placeholder:text-gray-300 focus:border focus:outline-none focus:border-slate-700">
                             <option value="category">Category</option>
                             <option value="customer">Customer</option>
                             <option value="employee">Employee</option>
@@ -213,36 +214,36 @@ class Datavisual extends React.Component {
                             <option value="territory">Territory</option>
                             <option value="unfulfilled">Unfulfilled Orders</option>
                         </select><br />
-                        <button className='bg-sky-300 rounded-md' type="submit">&nbsp;Submit Data Request&nbsp;</button>
+                        <button className='mt-2 inline-flex items-center py-2 px-1 text-sm font-medium text-center text-white bg-slate-700 rounded-lg hover:bg-slate-300' type="submit">&nbsp;Submit Data Request&nbsp;</button>
                     </form>
-                    <br /><br />
+                    <br />
                     {filter_comp}
-                    <br /><br /><br />
+                    <br />
                     {/* This is for the user to choose a pie chart */}
                     <div onChange={this.getPieChart}>
                         <input type="radio" value="emp" name="selectPie" /> View Top Employees<br />
                         <input type="radio" value="cust" name="selectPie" /> View Top Customers
                     </div>
-                    <br /><br /><br /><br /><br />
+                    <br />
                     {/* This is for the user to choose a percentage to view as a circular progress bar */}
                     <form onSubmit={this.handleSubmitDataVis}>
-                        <select value={this.state.dataViewChoice} onChange={this.handleChangeView} className='rounded-md'>
+                        <select value={this.state.dataViewChoice} onChange={this.handleChangeView} class="bg-slate-100 rounded-lg px-2 py-1 w-[80%] lg:w-[60%] placeholder:text-gray-300 focus:border focus:outline-none focus:border-blue-500">
                             <option value="none">Choose an option</option>
                             <option value="pofo">Percentage of fullfilled orders</option>
                             <option value="discount">Percentage of products sold at MRP</option>
                         </select><br />
-                        <button className='bg-sky-300 rounded-md' type="submit">&nbsp;Submit Data Visual Request&nbsp;</button>
+                        <button className='mt-2 inline-flex items-center py-2 px-1 text-sm font-medium text-center text-white bg-slate-700 rounded-lg hover:bg-slate-300' type="submit">&nbsp;Submit Data Visual Request&nbsp;</button>
                     </form>
                     <br/>
                     </aside>
                 </div>
                 {/* This is where the progress bar gets placed on the page */}
-                <div className=' float-left clear-left' style={{ width: 200, height: 200 }}>
-                    <CircularProgressbar value={this.state.value_to_be_displayed} text={this.state.value_to_be_displayed.toFixed(2)} 
+                <div className='ml-5 mt-5 p-5 rounded-full float-left clear-left bg-slate-300' style={{ width: 200, height: 200 }}>
+                    <CircularProgressbar  value={this.state.value_to_be_displayed} text={this.state.value_to_be_displayed.toFixed(2)} 
                     styles = {
                         buildStyles({
-                            textColor: "white",
-                            pathColor: "gold",
+                            textColor: "black",
+                            pathColor: "rgb(51 65 85)",
                             trailColor: "white"
                           })
                     }/>

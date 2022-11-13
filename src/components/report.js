@@ -40,7 +40,7 @@ class Report extends React.Component {
         return (
             <div>
                  <Navbar loggedin="true"/>
-                 <Menu/>
+                 <Menu reports="true"/>
                 {/* button that sends request to the backend */}
                 <button onClick={this.get_report_data} className='rounded-md bg-slate-300 ml-5'>&nbsp;Click Here To View Report&nbsp;</button>
                 {/* the className widgets represents a whole row of widgets */}

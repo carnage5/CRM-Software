@@ -177,7 +177,7 @@ router.post('/getData', (req, res) => {
 
                 if (results) {
                     console.log("Results found")
-                    // console.log(results)
+                    console.log(results)
                     res.send({ 'data': results })
                 }
                 else {
@@ -369,6 +369,7 @@ router.get('/reportData', (req, res) => {
                             console.log('Data retrieved')
                             results.sort((a, b) => (a.count < b.count) ? 1 : -1)
                             resObj.mvc = results.splice(0, 3)
+                            
                         }
                         else {
                             console.log("Database Error")

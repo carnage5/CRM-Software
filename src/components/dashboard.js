@@ -1,5 +1,5 @@
 import React from 'react';
-import { CircularProgressbar } from 'react-circular-progressbar';
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { PieChart, Pie, Tooltip } from 'recharts';
 import Navbar from './navbar';
@@ -127,8 +127,8 @@ class Datavisual extends React.Component {
             filter_comp = (
                 <div>
                     <form onSubmit={this.filterOrderDetails}>
-                        Customer ID:&nbsp;<input type = "text" defaultValue = "all" ref = {(e) => this.CustIdRef = e}></input>
-                        <br /><input type = "submit" value = "Filter"></input>
+                        Customer ID:&nbsp;<input type = "text" defaultValue = "all" ref = {(e) => this.CustIdRef = e} className='rounded-md'></input>
+                        <br /><input type = "submit" value = " Filter " className='rounded-md bg-sky-300'></input>
                     </form>
                 </div>
             );
@@ -149,7 +149,7 @@ class Datavisual extends React.Component {
             }
             else {
                 comp = ( // this is to create any table from any json data
-                    <table className='border-2 border-black border-solid'>
+                    <table className='border-2 border-white border-solid'>
                         <tr key={"header"}>
                             {Object.keys(this.state.data[0]).map((key) => (
                                 <th className='border-2 border-black border-solid'>{key}</th>
@@ -177,7 +177,7 @@ class Datavisual extends React.Component {
                             cx={400}
                             cy={300}
                             outerRadius={250}
-                            fill="#8884d8"
+                            fill="#1BDEC9"
                             label
                         />
                         <Tooltip />
@@ -192,14 +192,18 @@ class Datavisual extends React.Component {
             <div>
                 <Navbar loggedin="true"/>
                 <Menu/>
-                <div className=' bg-slate-300 float-left w-1/3'>
+                <br/>
+                <aside className='mx-3 justify-center'>
+                <div className=' bg-slate-300 float-left w-1/4 rounded-xl'>
+                    <br/>
                     {/* drop down menu for the user to choose which table they want to see */}
+                    <aside className='mx-3 justify-center'>
                     <form onSubmit={this.handleSubmitDataView}>
-                        <select value={this.state.dataChoice} onChange={this.handleChangeData}>
+                        <select value={this.state.dataChoice} onChange={this.handleChangeData} className='rounded-md'>
                             <option value="category">Category</option>
                             <option value="customer">Customer</option>
                             <option value="employee">Employee</option>
-                            <option value="employeeTerritory">Employee Territory</option>
+                            {/* <option value="employeeTerritory">Employee Territory</option> */}
                             <option value="orderDetail">Order Detail</option>
                             <option value="product">Product</option>
                             <option value="region">Region</option>
@@ -209,7 +213,7 @@ class Datavisual extends React.Component {
                             <option value="territory">Territory</option>
                             <option value="unfulfilled">Unfulfilled Orders</option>
                         </select><br />
-                        <button className='bg-sky-300' type="submit">Submit Data Request&nbsp;</button>
+                        <button className='bg-sky-300 rounded-md' type="submit">&nbsp;Submit Data Request&nbsp;</button>
                     </form>
                     <br /><br />
                     {filter_comp}
@@ -222,21 +226,31 @@ class Datavisual extends React.Component {
                     <br /><br /><br /><br /><br />
                     {/* This is for the user to choose a percentage to view as a circular progress bar */}
                     <form onSubmit={this.handleSubmitDataVis}>
-                        <select value={this.state.dataViewChoice} onChange={this.handleChangeView}>
+                        <select value={this.state.dataViewChoice} onChange={this.handleChangeView} className='rounded-md'>
                             <option value="none">Choose an option</option>
                             <option value="pofo">Percentage of fullfilled orders</option>
                             <option value="discount">Percentage of products sold at MRP</option>
                         </select><br />
-                        <button className='bg-sky-300' type="submit">Submit Data Visual Request&nbsp;</button>
+                        <button className='bg-sky-300 rounded-md' type="submit">&nbsp;Submit Data Visual Request&nbsp;</button>
                     </form>
+                    <br/>
+                    </aside>
                 </div>
                 {/* This is where the progress bar gets placed on the page */}
                 <div className=' float-left clear-left' style={{ width: 200, height: 200 }}>
-                    <CircularProgressbar value={this.state.value_to_be_displayed} text={this.state.value_to_be_displayed.toFixed(2)} />
+                    <CircularProgressbar value={this.state.value_to_be_displayed} text={this.state.value_to_be_displayed.toFixed(2)} 
+                    styles = {
+                        buildStyles({
+                            textColor: "white",
+                            pathColor: "gold",
+                            trailColor: "white"
+                          })
+                    }/>
                 </div>
-                <div className='h-[400px] overflow-scroll pr-10 px-10 rounded-md '>
+                <div className='h-[600px] overflow-scroll pr-10 px-10 rounded-md text-white'>
                     {comp}
                 </div>
+                </aside>
             </div>
         );
     }

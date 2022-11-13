@@ -4,15 +4,18 @@ import Datavisual from './dashboard';
 import Report from './report';
 import Navbar from './navbar';
 import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { NavLink,Link } from 'react-router-dom';
 
 class Menu extends React.Component {
+     constructor(props){
+        super(props)
+     }
     render() {
         return (
             <div>
-                <div className=' container flex flex-wrap rounded-lg mx-5 mt-1 p-5 flex-col md:ml-auto md:mr-auto items-center bg-blue-300 w-1/2'>
+                <div className=' container flex flex-wrap rounded-lg mx-5 mt-5 p-5 flex-col md:ml-auto md:mr-auto items-center bg-slate-100 w-1/2'>
                     <div className='md:ml-auto md:mr-auto flex flex-wrap text-base justify-center space-x-4'>
-                        <Link className='bg-blue-200 w-20 text-center rounded' to='/home'>Home</Link>
+                        <NavLink className= {' w-20 text-center rounded ' + (this.props.landing ?  'border-b-4 border-slate-700':'')} to='/home'>Home</NavLink>
                         <Link to='/accounts'>Accounts</Link>
                         <Link to='/dashboard'>Dashboard</Link>
                         <Link to='/reports'>Reports</Link>

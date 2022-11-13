@@ -3,10 +3,10 @@ import Navbar from "./navbar";
 
 const HomeLanding = () => {
   return (
-    <div>
+    <div className="">
       <Navbar loggedin="true" />
-      <Menu />
-      <section class="text-gray-600 body-font mt-0">
+      <Menu landing="true"/>
+      <section class="text-gray-600 body-font mt-0 ">
         <div class="container px-5 py-24 mx-auto ">
           <div class="flex flex-col text-center w-full mb-20">
             <h2 class="text-xl text-indigo-500 tracking-widest font-medium title-font mb-1">HOME</h2>

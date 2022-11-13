@@ -49,13 +49,13 @@ const SingleQuery = (props) => {
         setresponse(value)
     }
     return (
-        <div className='xl:w-[30%] md:w-1/2 p-4 mx-3 rounded-lg border border-gray-200 shadow-md bg-blue-200 my-3 hover:scale-[1.05]'>
+        <div className='xl:w-[30%] md:w-1/2 p-4 mx-3 rounded-lg border border-gray-200 shadow-md bg-slate-50 my-3 hover:scale-[1.05]'>
             <p className=" font-normal text-gray-700 ">Query from {props.query.custname}</p>
             <p className=" font-normal text-gray-700 ">{props.query.email}</p>
             <p className='font-normal text-gray-700 mb-2'>{props.query.query}</p>
-            <textarea required className="bg-slate-100 my-2 rounded-lg px-2 py-3 placeholder:text-gray-300 w-[60%] lg:w-[60%] focus:border focus:outline-none focus:border-blue-500" name={props.query._id} value={response} onChange={changeres} placeholder="type your response here" ></textarea>
+            <textarea required className="bg-slate-100 my-2 rounded-lg px-2 py-3 placeholder:text-gray-400 w-[60%] lg:w-[60%] border border-1 border-slate-500 focus:border focus:outline-none focus:border-blue-500" name={props.query._id} value={response} onChange={changeres} placeholder="type your response here" ></textarea>
             <br />
-            <button disabled={pr} className='inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-orange-500 rounded-lg hover:bg-orange-300 focus:ring-4 focus:outline-none focus:ring-orange-600' onClick={updateresponse}>Respond</button>
+            <button disabled={pr} className='inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-slate-700 rounded-lg hover:bg-orange-300 focus:ring-4 focus:outline-none focus:ring-orange-600' onClick={updateresponse}>Respond</button>
             {pr ? <h1>sending response</h1> : null}
             <p className="mt-3 font-normal text-xs text-gray-700">{formatDistanceToNow(new Date(props.query.createdAt), { addSuffix: true })}</p>
         </div>

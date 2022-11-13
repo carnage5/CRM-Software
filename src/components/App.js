@@ -19,7 +19,7 @@ function App() {
   // if(localStorage.user)
   {
     return (
-      <div className="app">
+      <div className=" bg-slate-500">
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<Startpage />} />

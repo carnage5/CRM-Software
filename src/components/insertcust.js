@@ -103,14 +103,14 @@ const CustForm = () => {
     }
 
     return (
-        <div class="flex justify-center w-full">
+        <div class="flex justify-center w-full bg-slate-300 rounded-xl ">
             <div class="flex  flex-col justify-center items-center max-w-7xl w-[90%]">
                 <div class="flex flex-col justify-center text-center space-y-3 my-5">
                     <h1 class="text-xl md:text-xl font-semibold">Add Customer</h1>
                 </div>
                 <div class=" flex flex-col justify-center lg:flex-row w-1/3 items-center lg:space-x-5 xl:space-x-24 ">
                     <div
-                        class=" bg-blue-300 flex flex-col justify-center space-y-3 md:w-full  mb-7 md:mx-16 lg:mx-0 px-8 py-4 lg:px-4">
+                        class=" bg-slate-200 flex flex-col justify-center space-y-3 md:w-full  mb-7 md:mx-16 lg:mx-0 px-8 py-4 lg:px-4 rounded-md">
                         <div class="flex flex-col justify-between lg:flex-row space-y-1 lg:space-y-0 ">
                             <h1>Company name</h1>
                             <input
@@ -209,7 +209,7 @@ const CustForm = () => {
                         {/* <input type="submit" className="text center bg-blue-500 my-2 px-3 py-1 text-white rounded-md"></input> */}
                         {error && <div className="text-center text-red-600 font-semibold ">{error}</div>}
                         <div class="text-center md:text-centre lg:text-centre">
-                            <button class="bg-blue-500 my-2 px-3 py-1 text-white rounded-md hover:bg-blue-600" onClick={handleSubmit}>Add customer</button>
+                            <button class="bg-slate-700 my-2 px-3 py-1 text-white rounded-md hover:bg-blue-600" onClick={handleSubmit}>Add customer</button>
                         </div>
                     </div>
 

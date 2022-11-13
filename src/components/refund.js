@@ -61,7 +61,7 @@ const Singlerefund = (props) => {
             alert("response field is empty")
     }
     return (
-        <div className='xl:w-[30%] md:w-1/2 p-4 mx-3 rounded-lg border border-gray-200 shadow-md bg-blue-200 my-3 hover:scale-[1.05]'>
+        <div className='xl:w-[30%] md:w-1/2 p-4 mx-3 rounded-lg border  border-gray-200 shadow-md bg-blue-200 my-3 hover:scale-[1.05] '>
             <p className=" font-normal text-gray-700"> name - {props.refund.custname}</p>
             <p className=" font-normal text-gray-700"> order id - {props.refund.orderid}</p>
             <p className=" font-normal text-gray-700"> amount - {props.refund.refundamt}</p>

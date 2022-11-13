@@ -19,8 +19,8 @@ const Navbar = (props) => {
         nav('/')
     }
     return (
-        <div class=" bg-blue-400  mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
-            <span class="ml-3 text-xl border-orange-400 border-2 border-solid " onClick={gohome}>CRM Software</span>
+        <div class=" bg-slate-300  mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+            <span class="ml-3 text-xl border-2 border-solid " onClick={gohome}>CRM Software</span>
             <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center space-x-4">
                 <span> {localStorage.user} </span>
                 {props.loggedin === "hide" ?

@@ -16,6 +16,7 @@
     height: 150px;
     justify-content: center;
     transition: transform 450ms;
+    background-color: slategray;
 }
 
 .widget:hover {

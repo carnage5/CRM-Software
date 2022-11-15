@@ -61,7 +61,7 @@ const Singlerefund = (props) => {
             alert("response field is empty")
     }
     return (
-        <div className='xl:w-[30%] md:w-1/2 p-4 mx-3 rounded-lg border max-h-56 border-gray-200 shadow-md bg-slate-50 my-3 overflow-y-auto hover:scale-[1.05]  '>
+        <div className='xl:w-[30%] md:w-1/2 p-4 mx-3 rounded-lg border max-h-56 border-gray-200 shadow-md bg-slate-50 my-3 overflow-y-hidden hover:scale-[1.05] hover:overflow-y-auto '>
             <p className=" font-normal text-gray-700"> name - {props.refund.custname}</p>
             <p className=" font-normal text-gray-700"> order id - {props.refund.orderid}</p>
             <p className=" font-normal text-gray-700"> amount - {props.refund.refundamt}</p>
@@ -72,7 +72,7 @@ const Singlerefund = (props) => {
             {showr ? <textarea className="bg-slate-100 mt-2 rounded-lg px-2 py-3 placeholder:text-gray-400 w-[60%] lg:w-[60%]  border border-1 border-slate-500 focus:border focus:outline-none  focus:border-slate-600" name={props.refund._id} value={response} onChange={changeres} placeholder='Reason to reject' /> : null}
             <br />
             {showr ? <button disabled={pr} name="reject" className='w-[20%] inline-flex justify-center py-2 text-sm font-medium text-center text-white bg-slate-700 rounded-lg hover:bg-slate-300' onClick={processrefund}>Send</button> : null}
-            {pr ? <h1>sending response</h1> : null}
+            {pr ? <h1>Sending Response...</h1> : null}
             <p className="mt-1 font-normal text-xs text-gray-700">{formatDistanceToNow(new Date(props.refund.createdAt), { addSuffix: true })}</p>
         </div>
     );

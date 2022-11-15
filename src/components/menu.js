@@ -1,15 +1,7 @@
 import React from 'react';
-import Customerdata from './accounts';
-import Datavisual from './dashboard';
-import Report from './report';
-import Navbar from './navbar';
-import { useNavigate } from 'react-router-dom';
-import { NavLink,Link } from 'react-router-dom';
+import {Link } from 'react-router-dom';
 
 class Menu extends React.Component {
-     constructor(props){
-        super(props)
-     }
     render() {
         return (
             <div>

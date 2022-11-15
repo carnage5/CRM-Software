@@ -58,7 +58,7 @@ const SingleQuery = (props) => {
             <textarea required className="bg-slate-100 rounded-lg px-2 py-3 placeholder:text-gray-400 w-[60%] lg:w-[60%] border border-1 border-slate-500 focus:border focus:outline-none focus:border-slate-600" name={props.query._id} value={response} onChange={changeres} placeholder="type your response here" ></textarea>
             <br />
             <button disabled={pr} className='inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-slate-700 rounded-lg hover:bg-slate-300' onClick={updateresponse}>Respond</button>
-            {pr ? <h1>sending response</h1> : null}
+            {pr ? <h1>Sending Response....</h1> : null}
             <p className="mt-3 font-normal text-xs text-gray-700">{formatDistanceToNow(new Date(props.query.createdAt), { addSuffix: true })}</p>
         </div>
     );

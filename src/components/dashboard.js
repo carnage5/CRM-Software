@@ -21,7 +21,7 @@ class Datavisual extends React.Component {
     }
 
     handleChangeData = (event) => { // function that updates dataChoice
-        if (event.target.value == 'salesOrder') {
+        if (event.target.value === 'salesOrder') {
             this.setState({
                 dataChoice: event.target.value,
                 filter: true
@@ -61,7 +61,7 @@ class Datavisual extends React.Component {
 
     handleSubmitDataVis = (event) => { // function that makes a request to the backend 
         event.preventDefault();
-        if (this.state.dataViewChoice == 'none') {
+        if (this.state.dataViewChoice === 'none') {
             alert("Please select an option")
         }
         else {
@@ -122,10 +122,11 @@ class Datavisual extends React.Component {
 
     render() {
         let filter_comp;
-        if (this.state.filter == true) {
+        if (this.state.filter === true) {
             console.log("Filter is set to true")
             filter_comp = (
                 <div>
+                    <br/>
                     <form onSubmit={this.filterOrderDetails}>
                         Customer ID:&nbsp;<input type = "text" defaultValue = "all" ref = {(e) => this.CustIdRef = e} className="bg-slate-100 rounded-lg px-2 py-1 placeholder:text-gray-600 w-[80%] lg:w-[60%]  border border-slate-400 focus:border  focus:outline-none focus:border-slate-700"
 ></input>
@@ -139,8 +140,8 @@ class Datavisual extends React.Component {
             console.log("Filter is set to false")
         }
         let comp;
-        if (this.state.dataAvailable == true && this.state.visualizationAvailable == false) {
-            if (this.state.data.length == 0) {
+        if (this.state.dataAvailable === true && this.state.visualizationAvailable === false) {
+            if (this.state.data.length === 0) {
                 console.log("Empty data")
                 comp = (
                 <div>
@@ -167,7 +168,7 @@ class Datavisual extends React.Component {
                 )
             }
         }
-        else if (this.state.dataAvailable == false && this.state.visualizationAvailable == true) {
+        else if (this.state.dataAvailable === false && this.state.visualizationAvailable === true) {
             comp = ( // pie chart
                 <div>
                     <PieChart width={800} height={800}>
@@ -200,7 +201,7 @@ class Datavisual extends React.Component {
                     {/* drop down menu for the user to choose which table they want to see */}
                     <aside className='mx-3 justify-center'>
                     <form onSubmit={this.handleSubmitDataView}>
-                        <select value={this.state.dataChoice} onChange={this.handleChangeData} class="bg-slate-100 rounded-lg px-2 py-1 w-[80%] lg:w-[60%] placeholder:text-gray-300 focus:border focus:outline-none focus:border-slate-700">
+                        <select value={this.state.dataChoice} onChange={this.handleChangeData} className="bg-slate-100 rounded-lg px-2 py-1 w-[80%] lg:w-[60%] placeholder:text-gray-300 focus:border focus:outline-none focus:border-slate-700">
                             <option value="category">Category</option>
                             <option value="customer">Customer</option>
                             <option value="employee">Employee</option>
@@ -216,9 +217,10 @@ class Datavisual extends React.Component {
                         </select><br />
                         <button className='mt-2 inline-flex items-center py-2 px-1 text-sm font-medium text-center text-white bg-slate-700 rounded-lg hover:bg-slate-300' type="submit">&nbsp;Submit Data Request&nbsp;</button>
                     </form>
-                    <br />
+                    <div>
                     {filter_comp}
-                    <br />
+                    </div>
+                    <br/>
                     {/* This is for the user to choose a pie chart */}
                     <div onChange={this.getPieChart}>
                         <input type="radio" value="emp" name="selectPie" /> View Top Employees<br />
@@ -227,7 +229,7 @@ class Datavisual extends React.Component {
                     <br />
                     {/* This is for the user to choose a percentage to view as a circular progress bar */}
                     <form onSubmit={this.handleSubmitDataVis}>
-                        <select value={this.state.dataViewChoice} onChange={this.handleChangeView} class="bg-slate-100 rounded-lg px-2 py-1 w-[80%] lg:w-[60%] placeholder:text-gray-300 focus:border focus:outline-none focus:border-blue-500">
+                        <select value={this.state.dataViewChoice} onChange={this.handleChangeView} className="bg-slate-100 rounded-lg px-2 py-1 w-[80%] lg:w-[60%] placeholder:text-gray-300 focus:border focus:outline-none focus:border-blue-500">
                             <option value="none">Choose an option</option>
                             <option value="pofo">Percentage of fullfilled orders</option>
                             <option value="discount">Percentage of products sold at MRP</option>

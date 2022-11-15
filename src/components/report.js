@@ -1,5 +1,4 @@
 import React from 'react';
-import "./report.css";
 import Navbar from './navbar';
 import Menu from './menu';
 class Report extends React.Component {
@@ -42,46 +41,47 @@ class Report extends React.Component {
                  <Navbar loggedin="true"/>
                  <Menu reports="true"/>
                 {/* button that sends request to the backend */}
-                <button onClick={this.get_report_data} className='rounded-md bg-slate-300 ml-5'>&nbsp;Click Here To View Report&nbsp;</button>
+                <div className='flex justify-center mt-5'>
+                <button onClick={this.get_report_data} className=' inline-flex items-center py-2 px-1 text-sm font-medium text-center text-white bg-slate-700 rounded-lg  hover:bg-slate-300  '>&nbsp;Click Here To View Report&nbsp;</button>
+                </div>
                 {/* the className widgets represents a whole row of widgets */}
-                <div className='flex p-[20px] gap-[20px] '>
-                    <div className='widget'>
-                        <div className='innerDiv'><b>Most Sold Product:&nbsp;</b>
-                            ID:&nbsp;{this.state.msp[0]._id}, {this.state.msp[0].count} Times</div>
+                <div className="container px-5 py-5 mx-auto ">
+                <div className='flex flex-wrap justify-center'>
+                    <div className=' xl:w-[30%] md:w-1/2 p-4 mx-3 rounded-lg max-h-80 overflow-y-auto border border-grey-200 shadow-md  shadow-slate-300 bg-slate-50 my-3 hover:scale-[1.05] transition duration-700'>
+                        <div className='h-[100px]'><p className='font-semibold'>Most Sold Product:</p><br/><p>
+                            ID:&nbsp;{this.state.msp[0]._id}, {this.state.msp[0].count} Times</p></div>
                     </div>
-                    <div className='widget'>
-                        <div className='innerDiv'><b>Total Revenue:&nbsp;</b>
-                            ${this.state.totalRevenue.toFixed(2)}</div>
+                    <div className='xl:w-[30%] md:w-1/2 p-4 mx-3 rounded-lg max-h-80 overflow-y-auto border border-grey-200 shadow-md  shadow-slate-300 bg-slate-50 my-3 hover:scale-[1.05] transition duration-700'>
+                        <div className='h-[100px]'><p className='font-semibold'>Total Revenue:</p><br/><p>
+                            ${this.state.totalRevenue.toFixed(2)}</p></div>
                     </div>
-                    <div className='widget'>
-                        <div className='innerDiv'><b>Average Product Unit Price:&nbsp;</b>
-                            ${this.state.avgUP.toFixed(2)}</div>
+                    <div className='xl:w-[30%] md:w-1/2 p-4 mx-3 rounded-lg max-h-80 overflow-y-auto border border-grey-200 shadow-md  shadow-slate-300 bg-slate-50 my-3 hover:scale-[1.05] transition duration-700'>
+                        <div className='h-[100px]'><p className='font-semibold'>Average Product Unit Price:</p><br/><p>
+                            ${this.state.avgUP.toFixed(2)}</p></div>
                     </div>
-                </div>
+                
                 <br></br>
                 {/* next row of widgets */}
-                <div className='flex p-[20px] gap-[20px]'>
-                    <div className='widget'>
-                        <div className='innerDiv'><b>Most Valuable Customer:&nbsp;</b>
-                            ID:&nbsp;{this.state.mvc[0]._id}, {this.state.mvc[0].count} Orders</div>
+                    <div className='xl:w-[30%] md:w-1/2 p-4 mx-3 rounded-lg max-h-80 overflow-y-auto border border-grey-200 shadow-md  shadow-slate-300 bg-slate-50 my-3 hover:scale-[1.05] transition duration-700'>
+                        <div className='h-[100px]'><p className='font-semibold'>Most Valuable Customer:</p><br/><p>
+                            ID:&nbsp;{this.state.mvc[0]._id}, {this.state.mvc[0].count} Orders</p></div>
                     </div>
-                    <div className='widget'>
-                        <div className='innerDiv'><b>Most Valuable Employee:&nbsp;</b>
-                            ID:&nbsp;{this.state.mve[0]._id}, {this.state.mve[0].count} Sales</div>
+                    <div className='xl:w-[30%] md:w-1/2 p-4 mx-3 rounded-lg max-h-80 overflow-y-auto border border-grey-200 shadow-md  shadow-slate-300 bg-slate-50 my-3 hover:scale-[1.05] transition duration-700'>
+                        <div className='h-[100px]'><p className='font-semibold'>Most Valuable Employee:</p><br/><p>
+                            ID:&nbsp;{this.state.mve[0]._id}, {this.state.mve[0].count} Sales</p></div>
                     </div>
-                </div>
                 <br></br>
                 {/* next row of widgets */}
-                <div className='flex p-[20px] gap-[20px]'>
-                    <div className='widget'>
-                        <div className='innerDiv'><b>Most Frequently Shipped Country:&nbsp;</b>
-                            {this.state.mfsc[0]._id}, {this.state.mfsc[0].count} Times</div>
+                    <div className='xl:w-[30%] md:w-1/2 p-4 mx-3 rounded-lg max-h-80 overflow-y-auto border border-grey-200 shadow-md  shadow-slate-300 bg-slate-50 my-3 hover:scale-[1.05] transition duration-700'>
+                        <div className='h-[100px]'><p className='font-semibold'>Most Frequently Shipped Country:</p><br/><p>
+                            {this.state.mfsc[0]._id}, {this.state.mfsc[0].count} Times</p></div>
                     </div>
-                    <div className='widget'>
-                        <div className='innerDiv'><b>Country With Most Number of Suppliers:&nbsp;</b>
-                            {this.state.cwms[0]._id}, {this.state.cwms[0].count} Suppliers</div>
+                    <div className='xl:w-[30%] md:w-1/2 p-4 mx-3 rounded-lg max-h-80 overflow-y-auto border border-grey-200 shadow-md  shadow-slate-300 bg-slate-50 my-3 hover:scale-[1.05] transition duration-700'>
+                        <div className='h-[100px]'><p className='font-semibold'>Country With Most Number of Suppliers:</p><br/><p>
+                            {this.state.cwms[0]._id}, {this.state.cwms[0].count} Suppliers</p></div>
                     </div>
                 </div>
+            </div>
             </div>
         )
     }

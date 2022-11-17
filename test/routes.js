@@ -436,15 +436,47 @@ router.post('/custinsert', async (req, res) => {
 })
 
 router.post('/saleinsert', async (req, res) => {
+    console.log(req.body)
     const { freight, entityId, shipCity, shipName, orderDate, shipperId, customerId, employeeId, shipRegion, shipAddress, shipCountry, shippedDate, requiredDate, shipPostalCode } = req.body
-    try {
-        const newsale = await salesmodel.create({ freight, entityId, shipCity, shipName, orderDate, shipperId, customerId, employeeId, shipRegion, shipAddress, shipCountry, shippedDate, requiredDate, shipPostalCode })
-        res.status(200).json(newsale)
+    MongoClient.connect(CONNECTION_URL, (err, client) => {
+            if (err) throw err
+            var dbo = client.db('CRM_Data')
+            try {
+                var newsale = dbo.collection('salesOrder').insertOne({ freight, entityId, shipCity, shipName, orderDate, shipperId, customerId, employeeId, shipRegion, shipAddress, shipCountry, shippedDate, requiredDate, shipPostalCode })  
+                res.status(200).json({message:"Success"})
+            }
+            catch(error) {
+                res.status(400).json({ error: error.message })
+            }
+            
+        })
+    // try {
+    //     const newsale = await salesmodel.create({ freight, entityId, shipCity, shipName, orderDate, shipperId, customerId, employeeId, shipRegion, shipAddress, shipCountry, shippedDate, requiredDate, shipPostalCode })
+    //     res.status(200).json(newsale)
 
-    } catch (error) {
-        res.status(400).json({ error: error.message })
-    }
+    // } catch (error) {
+    //     res.status(400).json({ error: error.message })
+    // }
 
+})
+
+router.post('/saledelete', (req, res) => {
+    console.log(req.body.entityId)
+    MongoClient.connect(CONNECTION_URL, (err, client) => {
+        if (err) throw err
+        var dbo = client.db("CRM_Data")
+        dbo.collection('salesOrder').deleteOne({entityId:req.body.entityId},(err,d)=>{
+            if (err) res.status(400).json({error: err})
+            console.log(d)
+            if (d.acknowledged && d.deletedCount > 0) {
+                res.status(200).json({"message":"success"})
+            }
+            else {
+                res.status(400).json({error: "sale does not exist"})
+            }
+            client.close()
+        })
+    })
 })
 
 // router.get('/custdelete',async(req,res) => {
@@ -468,15 +500,6 @@ router.delete('/custdelete/:id', async (req, res) => {
     res.status(200).json(cust)
 })
 
-
-router.delete('/saledelete/:id', async (req, res) => {
-    const { id } = req.params
-    const newsale = await salesmodel.findOneAndDelete({ _id: id })
-    if (!newsale) {
-        return res.status(400).json({ error: 'No such Sale Order' })
-    }
-    res.status(200).json(newsale)
-})
 
 router.post('/filterOrderDetails', (req, res) => {
     // req.body.custId contains the customer id for filtering, default value is all

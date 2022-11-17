@@ -20,7 +20,7 @@ const SaleForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         const newsale = { freight, entityId, shipCity, shipName, orderDate, shipperId, customerId, employeeId, shipRegion, shipAddress, shipCountry, shippedDate, requiredDate, shipPostalCode }
-        const response = await fetch('/saleinsert', {
+        const response = await fetch('http://localhost:4000/saleinsert', {
             method: 'POST',
             body: JSON.stringify(newsale),
             headers: {

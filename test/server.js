@@ -21,4 +21,6 @@ app.use(routes) //express router
 mongoose.connect(MONGO_URL) //connect to database , then create middleware server
 .then(()=>{
     app.listen(PORT,()=>console.log("Server running"))
+}).catch((error) => {
+    console.log(error)
 })

@@ -1,25 +1,24 @@
 import { useState } from "react"
 const Deletesale = () => {
-    const [saleid, setSaleid] = useState('')
-    const [error, setError] = useState('')
+    const [saleid, setSaleid] = useState('')//this is used to set the value of sale id after change
+    const [error, setError] = useState('')//this is used to set the value of an error
 
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e) => { //function to send sale id to the backend with the delete method
         e.preventDefault()
-        const sale = { saleid }
-        const response = await fetch('/saledelete/' + saleid, {
-            method: 'DELETE',
-            body: JSON.stringify(sale),
+        const response = await fetch('http://localhost:4000/saledelete', {
+            method: 'POST',
+            body: JSON.stringify({"entityId": saleid}), //storing the sale id in the body
             headers: {
                 'Content-Type': 'application/json'
             }
-
         })
         const json = await response.json()
+        console.log(json)
         if (!response.ok) {
-            setError(json.error)
+            setError(json.error) //setting the value of error in case of an error
         }
-        if (response.ok) {
+        if (response.ok) {  // resetting the values after a successful delete
             setSaleid('')
             setError(null)
             console.log("Sale Order deleted", json)

@@ -1,57 +1,5 @@
 import { useState } from "react"
 
-// const TestForm = () => {
-//      const [name,setName] = useState('')
-//      const [age,setAge] = useState('')
-//      const [error,setError] = useState('')
-//      const handleSubmit = async  (e) => {
-//         e.preventDefault()
-//         const testu = {name,age}
-//         const response  = await fetch('/testinsert',{
-//             method: 'POST',
-//             body: JSON.stringify(testu),
-//             headers: {
-//                 'Content-Type': 'application/json'
-//             }
-
-//         }) 
-//         const json = await response.json()
-
-//         if(!response.ok) {
-//             setError(json.error) 
-//         }
-//         if(response.ok) {
-//             setName('')
-//             setAge('')
-//             setError(null)
-//             console.log("NEW test user adede",json)
-
-//         }
-//      }
-
-//     return (
-//         <form className = "create" onSubmit={handleSubmit}>
-//             <h3>Add a new testuser</h3>
-//             <label>Name</label>
-//             <input 
-//                 type = "text"
-//                 onChange={(e) => setName(e.target.value)}
-//                 value={name}
-//             />
-//             <label>Age</label>
-//             <input 
-//                 type = "age"
-//                 onChange={(e) => setAge(e.target.value)}
-//                 value={age}
-//             />
-//             <button>Add testuser</button>
-//             {error && <div className="error">{error}</div>}
-//         </form>
-//     )
-// }
-
-// export default TestForm
-
 const CustForm = () => {
     const [fax, setFax] = useState('')
     const [city, setCity] = useState('')

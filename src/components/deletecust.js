@@ -2,20 +2,20 @@ import { useState } from "react"
 const Deletecust = () => {
     const [custid, setCustid] = useState('')
     const [error, setError] = useState('')
-
+ 
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const cust = { custid }
-        const response = await fetch('/custdelete/' + custid, {
-            method: 'DELETE',
-            body: JSON.stringify(cust),
+        const response = await fetch('http://localhost:4000/saledelete', {
+            method: 'POST',
+            body: JSON.stringify({"entityId":custid}),
             headers: {
                 'Content-Type': 'application/json'
             }
 
         })
         const json = await response.json()
+        console.log(json)
         if (!response.ok) {
             setError(json.error)
         }

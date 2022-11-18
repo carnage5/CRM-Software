@@ -555,6 +555,29 @@ router.post('/filterOrderDetails', (req, res) => {
     })
 })
 
+router.post('/getMvcData', (req, res) => {
+    // req.body contains custId which represents the customer for which we need to display the details
+    console.log("Inside /getMvcData")
+    console.log("Id to search for: " + req.body.custId)
+
+    MongoClient.connect(CONNECTION_URL, (err, client) => {
+        if (err) throw err
+        var dbo = client.db('CRM_Data')
+        dbo.collection('customer').findOne({entityId: req.body.custId}, (err, result) => {
+            if (err) throw err
+            if (result) {
+                console.log("Customer found")
+                console.log(result)
+                delete result._id
+                res.send({'data': [result]})
+            }
+            else {
+                console.log("Customer not found")
+            }
+            client.close()
+        })
+    })
+})
 
 module.exports = router
 /*

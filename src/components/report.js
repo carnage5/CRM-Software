@@ -12,7 +12,9 @@ class Report extends React.Component {
             mve: [{ _id: 'NA', count: '0' }], // most valuable employees
             cwms: [{ _id: 'NA', count: '0' }], // country with most number of suppliers
             msp: [{ _id: 'NA', count: '0' }], // most sold products
-            dataReady: false // we can use this later if we want to display the top 3 or the top 5
+            dataReady: false, // we can use this later if we want to display the top 3 or the top 5
+            floatingDiv: false,
+            customerData: []
         }
     }
 
@@ -35,7 +37,50 @@ class Report extends React.Component {
         })
     }
 
+    getMvcData = () => {
+        fetch('http://localhost:4000/getMvcData', {
+            method: "POST",
+            body: JSON.stringify({
+                custId: this.state.mvc[0]._id
+            }),
+            headers: { 'Content-Type': 'Application/json' }
+        }).then(resp => resp.json()).then(resp => {
+            console.log(resp.data)
+            this.setState({
+                floatingDiv: true,
+                customerData: resp.data
+            })
+        })
+    }
+
+
     render() {
+        let comp;
+        if (this.state.floatingDiv == true) {
+            comp = (
+                <div>
+                    <table className='border-2 border-white border-solid'>
+                        <tr key={"header"}>
+                            {Object.keys(this.state.customerData[0]).map((key) => (
+                                <th className='border-2 border-black border-solid'>{key}</th>
+                            ))}
+                        </tr>
+                        {this.state.customerData.map((item) => (
+                            <tr key={item._id}>
+                                {Object.values(item).map((val) => (
+                                    <td className='border-2 border-black border-solid'>{val}</td>
+                                ))}
+                            </tr>
+                        ))}
+                    </table>
+                </div>
+            )
+        }
+        else {
+            comp = (
+                <div></div>
+            )
+        }
         return (
             <div>
                  <Navbar loggedin="true"/>
@@ -63,8 +108,9 @@ class Report extends React.Component {
                 <br></br>
                 {/* next row of widgets */}
                     <div className='xl:w-[30%] md:w-1/2 p-4 mx-3 rounded-lg max-h-80 overflow-y-auto border border-grey-200 shadow-md  shadow-slate-300 bg-slate-50 my-3 hover:scale-[1.05] transition duration-700'>
-                        <div className='h-[100px]'><p className='font-semibold'>Most Valuable Customer:</p><br/><p>
-                            ID:&nbsp;{this.state.mvc[0]._id}, {this.state.mvc[0].count} Orders</p></div>
+                        <p className='font-semibold' onClick={this.getMvcData}>Most Valuable Customer:</p><br/>
+                        <p>ID:&nbsp;{this.state.mvc[0]._id}, {this.state.mvc[0].count} Orders</p>
+                        {comp}
                     </div>
                     <div className='xl:w-[30%] md:w-1/2 p-4 mx-3 rounded-lg max-h-80 overflow-y-auto border border-grey-200 shadow-md  shadow-slate-300 bg-slate-50 my-3 hover:scale-[1.05] transition duration-700'>
                         <div className='h-[100px]'><p className='font-semibold'>Most Valuable Employee:</p><br/><p>

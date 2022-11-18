@@ -14,8 +14,16 @@ class Report extends React.Component {
             msp: [{ _id: 'NA', count: '0' }], // most sold products
             dataReady: false, // we can use this later if we want to display the top 3 or the top 5
             floatingDiv: false,
-            customerData: []
+            customerData: [],
+            seen:false
         }
+    }
+
+    togglepop=()=>{
+        this.setState({
+            seen: !this.state.seen
+        })
+        console.log("works")
     }
 
     get_report_data = () => { // sends a request to the backend for the report data
@@ -38,6 +46,7 @@ class Report extends React.Component {
     }
 
     getMvcData = () => {
+        this.togglepop();
         fetch('http://localhost:4000/getMvcData', {
             method: "POST",
             body: JSON.stringify({
@@ -82,15 +91,22 @@ class Report extends React.Component {
             )
         }
         return (
-            <div>
+            <div className='relative'>
                  <Navbar loggedin="true"/>
                  <Menu reports="true"/>
+                 {this.state.seen ?  <div className='w-[70%] h-[70%] absolute m-auto left-0 right-0 ml-auto mr-auto z-10 p-2 mx-3 rounded-lg max-h-80 overflow-y-auto border border-grey-200 shadow-md  shadow-slate-300 bg-slate-300 my-3 '>
+                <button className="text-white float-right bg-slate-700 w-7 rounded-full hover:scale-[1.2] pb-1 cursor-pointer" onClick={this.togglepop}>&times;</button>
+                    <br/><br/>
+                    {comp}
+                </div> :null}
                 {/* button that sends request to the backend */}
                 <div className='flex justify-center mt-5'>
                 <button onClick={this.get_report_data} className=' inline-flex items-center py-2 px-1 text-sm font-medium text-center text-white bg-slate-700 rounded-lg  hover:bg-slate-300  '>&nbsp;Click Here To View Report&nbsp;</button>
                 </div>
                 {/* the className widgets represents a whole row of widgets */}
-                <div className="container px-5 py-5 mx-auto ">
+                <div className={"relative container px-5 py-5 mx-auto  " + (this.state.seen? 'mix-blend-normal':'')}>
+                    {/* <div className='flex items-center'> */}     
+                {/* </div> */}
                 <div className='flex flex-wrap justify-center'>
                     <div className=' xl:w-[30%] md:w-1/2 p-4 mx-3 rounded-lg max-h-80 overflow-y-auto border border-grey-200 shadow-md  shadow-slate-300 bg-slate-50 my-3 hover:scale-[1.05] transition duration-700'>
                         <div className='h-[100px]'><p className='font-semibold'>Most Sold Product:</p><br/><p>
@@ -110,7 +126,7 @@ class Report extends React.Component {
                     <div className='xl:w-[30%] md:w-1/2 p-4 mx-3 rounded-lg max-h-80 overflow-y-auto border border-grey-200 shadow-md  shadow-slate-300 bg-slate-50 my-3 hover:scale-[1.05] transition duration-700'>
                         <p className='font-semibold' onClick={this.getMvcData}>Most Valuable Customer:</p><br/>
                         <p>ID:&nbsp;{this.state.mvc[0]._id}, {this.state.mvc[0].count} Orders</p>
-                        {comp}
+
                     </div>
                     <div className='xl:w-[30%] md:w-1/2 p-4 mx-3 rounded-lg max-h-80 overflow-y-auto border border-grey-200 shadow-md  shadow-slate-300 bg-slate-50 my-3 hover:scale-[1.05] transition duration-700'>
                         <div className='h-[100px]'><p className='font-semibold'>Most Valuable Employee:</p><br/><p>

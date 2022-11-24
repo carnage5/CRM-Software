@@ -16,7 +16,7 @@ import Deletesale from './deletesale';
 import HomeLanding from './landing';
 function App() {
   const { user } = Usercontexthook()
-  // if(localStorage.user)
+  if(localStorage.user)
   {
     return (
       <div className=" bg-slate-500">
@@ -40,25 +40,19 @@ function App() {
       </div>
     );
   }
-  //   else
-  //  { return (
-  //     <div className="App">
-  //     <BrowserRouter>
-  //       <Routes>
-  //         <Route path='/' element={<Startpage/>}/>
-  //         {/* <Route path='login' element={<Login/>}/>
-  //         <Route path='menu' element={<Login/>}/>
-  //         <Route path='visual' element={<Login/>}/>
-  //         <Route path='data' element={<Login/>}/>
-  //         <Route path='report' element={<Login/>}/>
-  //         <Route path='queries' element={<Login/>}/>
-  //         <Route path='refund' element={<Login/>}/> */}
-  //         <Route path='*' element={<Notfound/>}/>
-  //       </Routes>
-  //     </BrowserRouter>
-  //     </div>
-  //  );
-  //  }
+    else
+   { return (
+      <div className="App">
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Startpage/>}/>
+          <Route path='login' element={<Login />} />
+          <Route path='*' element={<Notfound/>}/>
+        </Routes>
+      </BrowserRouter>
+      </div>
+   );
+   }
 }
 
 export default App;

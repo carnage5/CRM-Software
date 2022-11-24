@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from './navbar';
 import { Uselogin } from './uselogin';
@@ -12,12 +12,13 @@ function Login() {
         password:""
       }
     )
+    useEffect(()=>{
+      if(localStorage.user)
+        nav('/home')
+    })
     const checkdetails =async (event)=>{
         event.preventDefault();
-        //comment the next line out to run
         await login(user.email,user.password)
-        //uncomment the next line to run
-        //nav('/menu')
     }
     function changeval(event){
       var tempname=event.target.name

@@ -169,20 +169,21 @@ class Datavisual extends React.Component {
             }
         }
         else if (this.state.dataAvailable === false && this.state.visualizationAvailable === true) {
+            console.log(this.state.pieChartData)
             comp = ( // pie chart
-                <div>
-                    <PieChart width={800} height={800}>
+                <div className='bg-slate-200 flex rounded-xl justify-center overflow-hidden'>
+                    <PieChart width={800} height={600} className="overflow-hidden flex justify-center">
                         <Pie
                             dataKey="count"
-                            isAnimationActive={false}
+                            nameKey="name"
+                            isAnimationActive={true}
                             data={this.state.pieChartData}
-                            cx={400}
-                            cy={300}
-                            outerRadius={250}
-                            fill="#1BDEC9"
-                            label
+                            outerRadius={225}
+                            fill="#334155"
+                            label={(entry) => entry.name}
+                            
                         />
-                        <Tooltip />
+                        <Tooltip  separator=' count ' />
                     </PieChart>
                 </div>
             )
@@ -240,7 +241,7 @@ class Datavisual extends React.Component {
                     </aside>
                 </div>
                 {/* This is where the progress bar gets placed on the page */}
-                <div className='ml-5 mt-5 p-5 rounded-full float-left clear-left bg-slate-300' style={{ width: 200, height: 200 }}>
+                <div className='ml-[5%] mt-5 p-5 rounded-full float-left clear-left bg-slate-300' style={{ width: 200, height: 200 }}>
                     <CircularProgressbar  value={this.state.value_to_be_displayed} text={this.state.value_to_be_displayed.toFixed(2)} 
                     styles = {
                         buildStyles({
@@ -250,7 +251,7 @@ class Datavisual extends React.Component {
                           })
                     }/>
                 </div>
-                <div className='h-[600px] overflow-scroll pr-10 px-10 rounded-md text-white'>
+                <div className='h-[600px] overflow-auto pr-10 px-10 rounded-md text-white'>
                     {comp}
                 </div>
                 </aside>

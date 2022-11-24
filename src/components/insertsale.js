@@ -5,7 +5,7 @@ const SaleForm = () => {
     const [freight, setFreight] = useState('')
     const [entityId, setEntityId] = useState('')
     const [shipCity, setShipCity] = useState('')
-    const [shipName, setShipName] = useState('')
+    const [shipName, setShipName] = useState('') 
     const [orderDate, setOrderDate] = useState('')
     const [shipperId, setShipperId] = useState('')
     const [customerId, setCustomerId] = useState('')
@@ -74,7 +74,10 @@ const SaleForm = () => {
                         </div>
                         <div className="flex flex-col justify-between lg:flex-row space-y-1 lg:space-y-0">
                             <h1>Entity Id</h1>
-                            <input type="number"
+                            <input 
+                                type="number"
+                                min="0"
+                                required
                                 onChange={(e) => setEntityId(e.target.value)}
                                 value={entityId}
                                 className="bg-slate-100 rounded-lg px-2 py-1 placeholder:text-gray-600 w-[80%] lg:w-[60%] border border-slate-400 focus:border  focus:outline-none focus:border-slate-700" />
@@ -83,41 +86,55 @@ const SaleForm = () => {
                             <h1>Ship City</h1>
                             <input
                                 type="text"
+                                required
                                 onChange={(e) => setShipCity(e.target.value)}
                                 value={shipCity}
                                 className="bg-slate-100 rounded-lg px-2 py-1 placeholder:text-gray-600 w-[80%] lg:w-[60%] border border-slate-400 focus:border  focus:outline-none focus:border-slate-700" />
                         </div>
                         <div className="flex flex-col justify-between lg:flex-row space-y-1 lg:space-y-0">
                             <h1>Ship Name</h1>
-                            <input type="text"
+                            <input 
+                                type="text"
+                                required
                                 onChange={(e) => setShipName(e.target.value)}
                                 value={shipName}
                                 className="bg-slate-100 rounded-lg px-2 py-1 placeholder:text-gray-600 w-[80%] lg:w-[60%] border border-slate-400 focus:border  focus:outline-none focus:border-slate-700" />
                         </div>
                         <div className="flex flex-col justify-between lg:flex-row space-y-1 lg:space-y-0">
                             <h1>Order date</h1>
-                            <input type="text"
+                            <input 
+                                type="datetime-local"
+                                required
                                 onChange={(e) => setOrderDate(e.target.value)}
                                 value={orderDate}
                                 className="bg-slate-100 rounded-lg px-2 py-1 placeholder:text-gray-600 w-[80%] lg:w-[60%] border border-slate-400 focus:border  focus:outline-none focus:border-slate-700" />
                         </div>
                         <div className="flex flex-col justify-between lg:flex-row space-y-1 lg:space-y-0">
                             <h1>Shipper id</h1>
-                            <input type="number"
+                            <input 
+                                type="number"
+                                min="0"
+                                required
                                 onChange={(e) => setShipperId(e.target.value)}
                                 value={shipperId}
                                 className="bg-slate-100 rounded-lg px-2 py-1 placeholder:text-gray-600 w-[80%] lg:w-[60%] border border-slate-400 focus:border  focus:outline-none focus:border-slate-700" />
                         </div>
                         <div className="flex flex-col justify-between lg:flex-row space-y-1 lg:space-y-0">
                             <h1>Customer Id</h1>
-                            <input type="number"
+                            <input 
+                                type="number"
+                                min="0"
+                                required
                                 onChange={(e) => setCustomerId(e.target.value)}
                                 value={customerId}
                                 className="bg-slate-100 rounded-lg px-2 py-1 placeholder:text-gray-600 w-[80%] lg:w-[60%] border border-slate-400 focus:border  focus:outline-none focus:border-slate-700" />
                         </div>
                         <div className="flex flex-col justify-between lg:flex-row space-y-1 lg:space-y-0">
                             <h1>Employee Id</h1>
-                            <input type="number"
+                            <input 
+                                type="number"
+                                min="0"
+                                required
                                 onChange={(e) => setEmployeeId(e.target.value)}
                                 value={employeeId}
                                 className="bg-slate-100 rounded-lg px-2 py-1 placeholder:text-gray-600 w-[80%] lg:w-[60%] border border-slate-400 focus:border  focus:outline-none focus:border-slate-700" />
@@ -131,35 +148,46 @@ const SaleForm = () => {
                         </div>
                         <div className="flex flex-col justify-between lg:flex-row space-y-1 lg:space-y-0">
                             <h1>Ship Country</h1>
-                            <input type="text"
+                            <input 
+                                type="text"
+                                required
                                 onChange={(e) => setShipCountry(e.target.value)}
                                 value={shipCountry}
                                 className="bg-slate-100 rounded-lg px-2 py-1 placeholder:text-gray-600 w-[80%] lg:w-[60%] border border-slate-400 focus:border  focus:outline-none focus:border-slate-700" />
                         </div>
                         <div className="flex flex-col justify-between lg:flex-row space-y-1 lg:space-y-0">
                             <h1>Shipped date </h1>
-                            <input type="text"
+                            <input 
+                                type="datetime-local"
+                                required
                                 onChange={(e) => setShippedDate(e.target.value)}
                                 value={shippedDate}
                                 className="bg-slate-100 rounded-lg px-2 py-1 placeholder:text-gray-600 w-[80%] lg:w-[60%] border border-slate-400 focus:border  focus:outline-none focus:border-slate-700" />
                         </div>
                         <div className="flex flex-col justify-between lg:flex-row space-y-1 lg:space-y-0">
                             <h1>Required Date</h1>
-                            <input type="text"
+                            <input 
+                                type="datetime-local"
+                                required
                                 onChange={(e) => setRequiredDate(e.target.value)}
                                 value={requiredDate}
                                 className="bg-slate-100 rounded-lg px-2 py-1 placeholder:text-gray-600 w-[80%] lg:w-[60%] border border-slate-400 focus:border  focus:outline-none focus:border-slate-700" />
                         </div>
                         <div className="flex flex-col justify-between lg:flex-row space-y-1 lg:space-y-0">
                             <h1>Ship Postal Code</h1>
-                            <input type="text"
+                            <input 
+                                type="number"
+                                min="0"
+                                required
                                 onChange={(e) => setShipPostalCode(e.target.value)}
                                 value={shipPostalCode}
                                 className="bg-slate-100 rounded-lg px-2 py-1 placeholder:text-gray-600 w-[80%] lg:w-[60%] border border-slate-400 focus:border  focus:outline-none focus:border-slate-700" />
                         </div>
                         <div className="flex flex-col justify-between lg:flex-row space-y-1 lg:space-y-0">
                             <h1>Ship Address</h1>
-                            <textarea type="text"
+                            <textarea 
+                                type="text"
+                                required
                                 onChange={(e) => setShipAddress(e.target.value)}
                                 value={shipAddress} cols="10" rows="3"
                                 className="bg-slate-100 rounded-lg px-2 py-1 placeholder:text-gray-300 w-[80%] lg:w-[60%] border border-slate-400 focus:border  focus:outline-none focus:border-slate-700"></textarea>

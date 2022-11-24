@@ -64,13 +64,16 @@ const CustForm = () => {
                             <input
                                 className="bg-slate-100 rounded-lg px-2 py-1 placeholder:text-gray-600 w-[80%] lg:w-[60%]  border border-slate-400 focus:border  focus:outline-none focus:border-slate-700"
                                 type="text"
+                                required
                                 onChange={(e) => setCompanyName(e.target.value)}
                                 value={companyName}
                             />
                         </div>
                         <div className="flex flex-col justify-between lg:flex-row space-y-1 lg:space-y-0">
                             <h1>Contact name</h1>
-                            <input type="text"
+                            <input 
+                                type="text"
+                                required
                                 onChange={(e) => setContactName(e.target.value)}
                                 value={contactName}
                                 className="bg-slate-100 rounded-lg px-2 py-1 placeholder:text-gray-600 w-[80%] lg:w-[60%] border border-slate-400 focus:border  focus:outline-none focus:border-slate-700" />
@@ -79,20 +82,23 @@ const CustForm = () => {
                             <h1>Contact Title</h1>
                             <input
                                 type="text"
+                                required
                                 onChange={(e) => setContactTitle(e.target.value)}
                                 value={contactTitle}
                                 className="bg-slate-100 rounded-lg px-2 py-1 placeholder:text-gray-600 w-[80%] lg:w-[60%] border border-slate-400 focus:border  focus:outline-none focus:border-slate-700" />
                         </div>
                         <div className="flex flex-col justify-between lg:flex-row space-y-1 lg:space-y-0">
                             <h1>Email</h1>
-                            <input type="text"
+                            <input type="email"
                                 onChange={(e) => setEmail(e.target.value)}
                                 value={email}
                                 className="bg-slate-100 rounded-lg px-2 py-1 placeholder:text-gray-600 w-[80%] lg:w-[60%] border border-slate-400 focus:border  focus:outline-none focus:border-slate-700" />
                         </div>
                         <div className="flex flex-col justify-between lg:flex-row space-y-1 lg:space-y-0">
                             <h1>Phone</h1>
-                            <input type="tel"
+                            <input 
+                                type="tel"
+                                required
                                 onChange={(e) => setPhone(e.target.value)}
                                 value={phone}
                                 className="bg-slate-100 rounded-lg px-2 py-1 placeholder:text-gray-600 w-[80%] lg:w-[60%] border border-slate-400 focus:border  focus:outline-none focus:border-slate-700" />
@@ -106,14 +112,18 @@ const CustForm = () => {
                         </div>
                         <div className="flex flex-col justify-between lg:flex-row space-y-1 lg:space-y-0">
                             <h1>Fax</h1>
-                            <input type="text"
+                            <input 
+                                type="tel"
+                                required
                                 onChange={(e) => setFax(e.target.value)}
                                 value={fax}
                                 className="bg-slate-100 rounded-lg px-2 py-1 placeholder:text-gray-600 w-[80%] lg:w-[60%] border border-slate-400 focus:border  focus:outline-none focus:border-slate-700" />
                         </div>
                         <div className="flex flex-col justify-between lg:flex-row space-y-1 lg:space-y-0">
                             <h1>City</h1>
-                            <input type="text"
+                            <input 
+                                type="text"
+                                required
                                 onChange={(e) => setCity(e.target.value)}
                                 value={city}
                                 className="bg-slate-100 rounded-lg px-2 py-1 placeholder:text-gray-600 w-[80%] lg:w-[60%] border border-slate-400 focus:border  focus:outline-none focus:border-slate-700" />
@@ -127,14 +137,18 @@ const CustForm = () => {
                         </div>
                         <div className="flex flex-col justify-between lg:flex-row space-y-1 lg:space-y-0">
                             <h1>Country</h1>
-                            <input type="text"
+                            <input 
+                                type="text"
+                                required
                                 onChange={(e) => setCountry(e.target.value)}
                                 value={country}
                                 className="bg-slate-100 rounded-lg px-2 py-1 placeholder:text-gray-600 w-[80%] lg:w-[60%] border border-slate-400 focus:border  focus:outline-none focus:border-slate-700" />
                         </div>
                         <div className="flex flex-col justify-between lg:flex-row space-y-1 lg:space-y-0">
                             <h1>Entity ID</h1>
-                            <input type="number"
+                            <input 
+                                type="number"
+                                required
                                 onChange={(e) => setEntityId(e.target.value)}
                                 value={entityId}
                                 min="0"
@@ -142,14 +156,18 @@ const CustForm = () => {
                         </div>
                         <div className="flex flex-col justify-between lg:flex-row space-y-1 lg:space-y-0">
                             <h1>Postal Code</h1>
-                            <input type="text"
+                            <input type="number"
+                                required
+                                min="0"
                                 onChange={(e) => setPostalCode(e.target.value)}
                                 value={postalCode}
                                 className="bg-slate-100 rounded-lg px-2 py-1 placeholder:text-gray-600 w-[80%] lg:w-[60%] border border-slate-400 focus:border  focus:outline-none focus:border-slate-700" />
                         </div>
                         <div className="flex flex-col justify-between lg:flex-row space-y-1 lg:space-y-0">
                             <h1>Address</h1>
-                            <textarea type="text"
+                            <textarea 
+                                type="text"
+                                required
                                 onChange={(e) => setAddress(e.target.value)}
                                 value={address} cols="10" rows="3"
                                 className="bg-slate-100 rounded-lg px-2 py-1 placeholder:text-gray-300 w-[80%] lg:w-[60%] border border-slate-400 focus:border  focus:outline-none focus:border-slate-700"></textarea>

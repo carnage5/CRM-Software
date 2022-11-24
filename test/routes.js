@@ -555,6 +555,36 @@ router.post('/filterOrderDetails', (req, res) => {
     })
 })
 
+router.post('/filterOrderId', (req, res) => {
+    // req.body.custId contains the order id for filtering, default value is all
+    console.log("Inside filterOrderId")
+    console.log(req.body.orderId)
+    MongoClient.connect(CONNECTION_URL, function (err, client) {
+        var filter;
+        if (req.body.orderId == 'all') {
+            filter = {};
+        }
+        else {
+            filter = {orderId: parseInt(req.body.orderId, 10)}
+        }
+        console.log("Filter is ", filter)
+        if (err) throw err;
+        var dbo = client.db('CRM_Data')
+        dbo.collection('orderDetail').find(filter).project({_id: 0}).toArray(function (err, results) {
+            if (err) throw err
+            if (results) {
+                console.log("Results Found")
+                console.log(results)
+                res.send({data : results})
+            }
+            else {
+                console.log('Incorrect Order Id')
+            }
+            client.close()
+        })
+    })
+})
+
 router.post('/getMvcData', (req, res) => {
     // req.body contains custId which represents the customer for which we need to display the details
     console.log("Inside /getMvcData")

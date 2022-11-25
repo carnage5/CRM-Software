@@ -21,7 +21,7 @@ class Datavisual extends React.Component {
     }
 
     handleChangeData = (event) => { // function that updates dataChoice
-        if (event.target.value === 'salesOrder' || event.target.value == 'orderDetail') {
+        if (event.target.value === 'salesOrder' || event.target.value === 'orderDetail') {
             this.setState({
                 dataChoice: event.target.value,
                 filter: true
@@ -143,7 +143,7 @@ class Datavisual extends React.Component {
         let filter_comp;
         if (this.state.filter === true) {
             console.log("Filter is set to true")
-            if (this.state.dataChoice == 'salesOrder') {
+            if (this.state.dataChoice === 'salesOrder') {
                 filter_comp = (
                     <div>
                         <br />
@@ -175,7 +175,7 @@ class Datavisual extends React.Component {
         let comp;
         if (this.state.dataAvailable === true && this.state.visualizationAvailable === false) {
             if (this.state.data.length === 0) {
-                if (this.state.dataChoice == 'salesOrder') {
+                if (this.state.dataChoice === 'salesOrder') {
                     console.log("Empty data")
                     comp = (
                         <div>

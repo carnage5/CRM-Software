@@ -22,6 +22,8 @@ const Deletesale = () => {
             setSaleid('')
             setError(null)
             console.log("Sale Order deleted", json)
+            alert("Sale Succesfully deleted")
+
         }
 
     }

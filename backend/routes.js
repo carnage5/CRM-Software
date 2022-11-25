@@ -492,6 +492,26 @@ router.post('/saledelete', (req, res) => {
     })
 })
 
+
+router.post('/custdelete', (req, res) => {
+    console.log(req.body.entityId)
+    MongoClient.connect(CONNECTION_URL, (err, client) => {
+        if (err) throw err
+        var dbo = client.db("CRM_Data")
+        dbo.collection('customer').deleteOne({entityId:req.body.entityId},(err,d)=>{
+            if (err) res.status(400).json({error: err})
+            console.log(d)
+            if (d.acknowledged && d.deletedCount > 0) {
+                res.status(200).json({"message":"success"})
+            }
+            else {
+                res.status(400).json({error: "customer does not exist"})
+            }
+            client.close()
+        })
+    })
+})
+
 // router.get('/custdelete',async(req,res) => {
 //     const custs = await custmodel.find({}).sort({createdAt: -1})
 //     res.status(200).json(custs)

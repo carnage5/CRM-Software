@@ -150,7 +150,7 @@ class Datavisual extends React.Component {
                         <form onSubmit={this.filterOrderDetails}>
                             Customer ID:&nbsp;<input type="text" defaultValue="all" ref={(e) => this.CustIdRef = e} className="bg-slate-100 rounded-lg px-2 py-1 placeholder:text-gray-600 w-[80%] lg:w-[60%]  border border-slate-400 focus:border  focus:outline-none focus:border-slate-700"
                             ></input>
-                            <br /><button type="submit" className='mt-2 inline-flex justify-center py-2 px-1 w-20 text-sm font-medium text-center text-white bg-slate-700 rounded-lg hover:bg-slate-300'>Filter</button>
+                            <br /><button type="submit" className='mt-2 inline-flex justify-center py-2 px-1 w-20 text-sm font-medium text-center text-white bg-slate-700 rounded-lg hover:bg-slate-500'>Filter</button>
                         </form>
                     </div>
                 );
@@ -162,7 +162,7 @@ class Datavisual extends React.Component {
                         <form onSubmit={this.filterOrderId}>
                             Order ID:&nbsp;<input type="text" defaultValue="all" ref={(e) => this.OrderIdRef = e} className="bg-slate-100 rounded-lg px-2 py-1 placeholder:text-gray-600 w-[80%] lg:w-[60%]  border border-slate-400 focus:border  focus:outline-none focus:border-slate-700"
                             ></input>
-                            <br /><button type="submit" className='mt-2 inline-flex justify-center py-2 px-1 w-20 text-sm font-medium text-center text-white bg-slate-700 rounded-lg hover:bg-slate-300'>Filter</button>
+                            <br /><button type="submit" className='mt-2 inline-flex justify-center py-2 px-1 w-20 text-sm font-medium text-center text-white bg-slate-700 rounded-lg hover:bg-slate-500'>Filter</button>
                         </form>
                     </div>
                 );
@@ -194,7 +194,7 @@ class Datavisual extends React.Component {
             }
             else {
                 comp = ( // this is to create any table from any json data
-                    <table className='border-2 border-white border-solid'>
+                    <table className='border-2 border-white border-solid rounded-xl text-slate-700'>
                         <tr key={"header"}>
                             {Object.keys(this.state.data[0]).map((key) => (
                                 <th className='border-2 border-black border-solid'>{key}</th>
@@ -240,7 +240,7 @@ class Datavisual extends React.Component {
                 <Menu dashboard="true" />
                 <br />
                 <aside className='mx-3 justify-center'>
-                    <div className=' bg-slate-300 float-left w-1/4 rounded-xl'>
+                    <div className=' bg-slate-300 float-left w-[24%] rounded-xl'>
                         <br />
                         {/* drop down menu for the user to choose which table they want to see */}
                         <aside className='mx-3 justify-center'>
@@ -259,7 +259,7 @@ class Datavisual extends React.Component {
                                     <option value="territory">Territory</option>
                                     <option value="unfulfilled">Unfulfilled Orders</option>
                                 </select><br />
-                                <button className='mt-2 inline-flex items-center py-2 px-1 text-sm font-medium text-center text-white bg-slate-700 rounded-lg hover:bg-slate-300' type="submit">&nbsp;Submit Data Request&nbsp;</button>
+                                <button className='mt-2 inline-flex items-center py-2 px-1 text-sm font-medium text-center text-white bg-slate-700 rounded-lg hover:bg-slate-500' type="submit">&nbsp;Submit Data Request&nbsp;</button>
                             </form>
                             <div>
                                 {filter_comp}
@@ -273,12 +273,12 @@ class Datavisual extends React.Component {
                             <br />
                             {/* This is for the user to choose a percentage to view as a circular progress bar */}
                             <form onSubmit={this.handleSubmitDataVis}>
-                                <select value={this.state.dataViewChoice} onChange={this.handleChangeView} className="bg-slate-100 rounded-lg px-2 py-1 w-[80%] lg:w-[60%] placeholder:text-gray-300 focus:border focus:outline-none focus:border-blue-500">
+                                <select value={this.state.dataViewChoice} onChange={this.handleChangeView} className="bg-slate-100 rounded-lg px-2 py-1 w-[80%] lg:w-[60%] placeholder:text-gray-300 focus:border focus:outline-none focus:border-slate-500">
                                     <option value="none">Choose an option</option>
                                     <option value="pofo">Percentage of fullfilled orders</option>
                                     <option value="discount">Percentage of products sold at MRP</option>
                                 </select><br />
-                                <button className='mt-2 inline-flex items-center py-2 px-1 text-sm font-medium text-center text-white bg-slate-700 rounded-lg hover:bg-slate-300' type="submit">&nbsp;Submit Data Visual Request&nbsp;</button>
+                                <button className='mt-2 inline-flex items-center py-2 px-1 text-sm font-medium text-center text-white bg-slate-700 rounded-lg hover:bg-slate-500' type="submit">&nbsp;Submit Data Visual Request&nbsp;</button>
                             </form>
                             <br />
                         </aside>
@@ -294,7 +294,8 @@ class Datavisual extends React.Component {
                                 })
                             } />
                     </div>
-                    <div className='h-[600px] overflow-auto pr-10 px-10 rounded-md text-white'>
+                    {console.log(comp)}
+                    <div className=' h-[600px] relative ml-[370px] p-5 overflow-auto  bg-slate-200 rounded-lg'>
                         {comp}
                     </div>
                 </aside>

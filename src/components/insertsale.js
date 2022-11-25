@@ -50,6 +50,8 @@ const SaleForm = () => {
             setShipPostalCode('')
             setError(null)
             console.log("New Sale added", json)
+            alert("Sale Succesfully added")
+
 
         }
     }

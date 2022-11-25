@@ -6,7 +6,7 @@ const Deletecust = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const response = await fetch('http://localhost:4000/saledelete', {
+        const response = await fetch('http://localhost:4000/custdelete', {
             method: 'POST',
             body: JSON.stringify({"entityId":custid}),
             headers: {
@@ -23,6 +23,7 @@ const Deletecust = () => {
             setCustid('')
             setError(null)
             console.log("Customer deleted", json)
+            alert("Customer Succesfully deleted")
         }
 
     }

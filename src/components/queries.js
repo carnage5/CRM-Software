@@ -88,7 +88,6 @@ const Queries = () => {
         <div>
             <Navbar loggedin="true" />
             <Menu queries="true"/>
-            <h1> Queries</h1>
             <div className="container px-5 py-5 mx-auto ">
                 <div className="flex flex-wrap justify-center">
                     {qDisplay ? Query.map((n) => (

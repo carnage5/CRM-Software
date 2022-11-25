@@ -20,6 +20,8 @@ const SaleForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         const newsale = { freight, entityId, shipCity, shipName, orderDate, shipperId, customerId, employeeId, shipRegion, shipAddress, shipCountry, shippedDate, requiredDate, shipPostalCode }
+        if(requiredDate<orderDate || requiredDate<shippedDate || shippedDate<orderDate){
+            alert("Please enter accurate dates")}
         const response = await fetch('http://localhost:4000/saleinsert', {
             method: 'POST',
             body: JSON.stringify(newsale),
@@ -63,7 +65,7 @@ const SaleForm = () => {
                     <h1 className="text-xl md:text-xl font-semibold tracking-widest">Add Sale</h1>
                 </div>
                 <div className=" flex flex-col justify-center lg:flex-row w-1/3 items-center lg:space-x-5 xl:space-x-24 ">
-                    <div
+                    <form onSubmit={handleSubmit}
                         className=" bg-slate-200 rounded-md flex flex-col justify-center space-y-3 md:w-full  mb-7 md:mx-16 lg:mx-0 px-8 py-4 lg:px-4">
                         <div className="flex flex-col justify-between lg:flex-row space-y-1 lg:space-y-0 ">
                             <h1>Freight</h1>
@@ -197,9 +199,9 @@ const SaleForm = () => {
                         {/* <input type="submit" className="text center bg-blue-500 my-2 px-3 py-1 text-white rounded-md"></input> */}
                         {error && <div className="text-center text-red-600 font-semibold ">{error}</div>}
                         <div className="text-center md:text-centre lg:text-centre">
-                            <button className="bg-slate-700 my-2 px-3 py-1 text-white rounded-md hover:bg-slate-500" onClick={handleSubmit}>Add Sale</button>
+                            <button type="submit" className="bg-slate-700 my-2 px-3 py-1 text-white rounded-md hover:bg-slate-500">Add Sale</button>
                         </div>
-                    </div>
+                    </form>
 
                 </div>
             </div>

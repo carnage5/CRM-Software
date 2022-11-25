@@ -34,7 +34,8 @@ const Deletecust = () => {
                     <h1 className="text-xl md:text-xl font-semibold tracking-widest">Delete Customer</h1>
                 </div>
                 <div className=" flex flex-col justify-center lg:flex-row w-1/3 items-center lg:space-x-5 xl:space-x-24 ">
-                    <div
+                    <form
+                    onSubmit={handleSubmit}
                         className=" bg-slate-200 flex flex-col justify-center space-y-3 md:w-full  mb-7 md:mx-16 lg:mx-0 px-8 py-4 lg:px-4">
                         <div className="flex flex-col justify-between lg:flex-row space-y-1 lg:space-y-0 ">
                             <h1>Customer Id</h1>
@@ -43,14 +44,15 @@ const Deletecust = () => {
                                 type="text"
                                 onChange={(e) => setCustid(e.target.value)}
                                 value={custid}
+                                required
                             />
                         </div>
                         {/* <input type="submit" className="text center bg-blue-500 my-2 px-3 py-1 text-white rounded-md"></input> */}
                         {error && <div className="text-center text-red-500 font-semibold ">{error}</div>}
                         <div className="text-center md:text-centre lg:text-centre">
-                            <button className="bg-slate-700 my-2 px-3 py-1 text-white rounded-md hover:bg-slate-500" onClick={handleSubmit}>Delete customer</button>
+                            <button type="submit" className="bg-slate-700 my-2 px-3 py-1 text-white rounded-md hover:bg-slate-500" >Delete customer</button>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
 

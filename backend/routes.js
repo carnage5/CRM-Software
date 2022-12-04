@@ -1,5 +1,6 @@
 //routes and functions to be called from server.js
 const express = require('express')
+require('dotenv').config()
 const router = express.Router()
 const { custmodel, loginmodel, qm, rm } = require('./model')
 const nodemailer = require('nodemailer')
@@ -77,8 +78,8 @@ router.post('/refunds', async (req, res) => {
 const transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
-        user: 'crm.company.reply@gmail.com',
-        pass: 'arvvssfpaxlqskpu'
+        user: process.env.USER,
+        pass: process.env.PASS
     }
 });
 
@@ -141,8 +142,6 @@ router.patch('/refunds/:id', async (req, res) => {
 // })
 
 var MongoClient = require('mongodb').MongoClient
-const CONNECTION_URL = 'mongodb+srv://crmadmin:crmadmin@cluster0.oxbvxcb.mongodb.net/test'
-const PORT = 4000
 
 router.post('/getData', (req, res) => {
     // in this function, the user requests for data in a particular collection
@@ -151,7 +150,7 @@ router.post('/getData', (req, res) => {
     console.log("inside getData")
     console.log("req.body in /getData", req.body)
 
-    MongoClient.connect(CONNECTION_URL, (err, client) => {
+    MongoClient.connect(process.env.CONNECTION_URL, (err, client) => {
         if (err) throw err
         console.log("connected")
         if (req.body.dataChoice == 'unfulfilled') {
@@ -200,7 +199,7 @@ router.post('/dataVisReq', (req, res) => {
 
     if (req.body.dataVisCategory == 'pofo') {
         // pofo is percentage of fulfilled orders
-        MongoClient.connect(CONNECTION_URL, (err, client) => {
+        MongoClient.connect(process.env.CONNECTION_URL, (err, client) => {
             if (err) throw err
 
             var dbo = client.db('CRM_Data')
@@ -224,7 +223,7 @@ router.post('/dataVisReq', (req, res) => {
         })
     }
     else {
-        MongoClient.connect(CONNECTION_URL, (err, client) => {
+        MongoClient.connect(process.env.CONNECTION_URL, (err, client) => {
             if (err) throw err
             // this section is to retrieve what percentage of the products were sold at MRP
             var dbo = client.db('CRM_Data')
@@ -257,7 +256,7 @@ router.post('/getPieChart', (req, res) => {
 
     if (req.body.pieChart == 'emp') {
         // this block is to retieve data grouped by employeeId
-        MongoClient.connect(CONNECTION_URL, (err, client) => {
+        MongoClient.connect(process.env.CONNECTION_URL, (err, client) => {
             if (err) throw err
             var dbo = client.db('CRM_Data')
             dbo.collection('GroupByEmpId').find({}).toArray(function (err, results) {
@@ -281,7 +280,7 @@ router.post('/getPieChart', (req, res) => {
     }
     else {
         // this block is to retrieve data grouped by customerId
-        MongoClient.connect(CONNECTION_URL, (err, client) => {
+        MongoClient.connect(process.env.CONNECTION_URL, (err, client) => {
             if (err) throw err
             var dbo = client.db('CRM_Data')
             dbo.collection('GroupByCustId').find({}).toArray(function (err, results) {
@@ -319,7 +318,7 @@ router.get('/reportData', (req, res) => {
         cwms: [], // country with most number of suppliers
         msp: [] // most sold products
     }
-    MongoClient.connect(CONNECTION_URL, (err, client) => {
+    MongoClient.connect(process.env.CONNECTION_URL, (err, client) => {
         if (err) throw err
 
         var dbo = client.db('CRM_Data')
@@ -426,7 +425,7 @@ router.get('/reportData', (req, res) => {
 router.post('/custinsert', async (req, res) => {
     console.log(req.body)
     const { fax, city, email, phone, mobile, region, address, country, entityId, postalCode, companyName, contactName, contactTitle } = req.body
-    MongoClient.connect(CONNECTION_URL, (err, client) => {
+    MongoClient.connect(process.env.CONNECTION_URL, (err, client) => {
         if (err) throw err
         var dbo = client.db('CRM_Data')
         try {
@@ -451,7 +450,7 @@ router.post('/custinsert', async (req, res) => {
 router.post('/saleinsert', async (req, res) => {
     console.log(req.body)
     const { freight, entityId, shipCity, shipName, orderDate, shipperId, customerId, employeeId, shipRegion, shipAddress, shipCountry, shippedDate, requiredDate, shipPostalCode } = req.body
-    MongoClient.connect(CONNECTION_URL, (err, client) => {
+    MongoClient.connect(process.env.CONNECTION_URL, (err, client) => {
             if (err) throw err
             var dbo = client.db('CRM_Data')
             try {
@@ -475,7 +474,7 @@ router.post('/saleinsert', async (req, res) => {
 
 router.post('/saledelete', (req, res) => {
     console.log(req.body.entityId)
-    MongoClient.connect(CONNECTION_URL, (err, client) => {
+    MongoClient.connect(process.env.CONNECTION_URL, (err, client) => {
         if (err) throw err
         var dbo = client.db("CRM_Data")
         dbo.collection('salesOrder').deleteOne({entityId:req.body.entityId},(err,d)=>{
@@ -495,7 +494,7 @@ router.post('/saledelete', (req, res) => {
 
 router.post('/custdelete', (req, res) => {
     console.log(req.body.entityId)
-    MongoClient.connect(CONNECTION_URL, (err, client) => {
+    MongoClient.connect(process.env.CONNECTION_URL, (err, client) => {
         if (err) throw err
         var dbo = client.db("CRM_Data")
         dbo.collection('customer').deleteOne({entityId:req.body.entityId},(err,d)=>{
@@ -519,7 +518,7 @@ router.post('/custdelete', (req, res) => {
 
 router.delete('/custdelete/:id', async (req, res) => {
     console.log(req.body.entityId)
-    MongoClient.connect(CONNECTION_URL, (err, client) => {
+    MongoClient.connect(process.env.CONNECTION_URL, (err, client) => {
         if (err) throw err
         var dbo = client.db("CRM_Data")
         dbo.collection('customer').deleteOne({entityId:req.body.entityId},(err,d)=>{
@@ -549,7 +548,7 @@ router.post('/filterOrderDetails', (req, res) => {
     // req.body.custId contains the customer id for filtering, default value is all
     console.log("Inside filterOrderDetails")
     console.log(req.body.custId)
-    MongoClient.connect(CONNECTION_URL, function (err, client) {
+    MongoClient.connect(process.env.CONNECTION_URL, function (err, client) {
         var filter;
         if (req.body.custId == 'all') {
             filter = {};
@@ -579,7 +578,7 @@ router.post('/filterOrderId', (req, res) => {
     // req.body.custId contains the order id for filtering, default value is all
     console.log("Inside filterOrderId")
     console.log(req.body.orderId)
-    MongoClient.connect(CONNECTION_URL, function (err, client) {
+    MongoClient.connect(process.env.CONNECTION_URL, function (err, client) {
         var filter;
         if (req.body.orderId == 'all') {
             filter = {};
@@ -610,7 +609,7 @@ router.post('/getMvcData', (req, res) => {
     console.log("Inside /getMvcData")
     console.log("Id to search for: " + req.body.custId)
 
-    MongoClient.connect(CONNECTION_URL, (err, client) => {
+    MongoClient.connect(process.env.CONNECTION_URL, (err, client) => {
         if (err) throw err
         var dbo = client.db('CRM_Data')
         dbo.collection('customer').findOne({entityId: req.body.custId}, (err, result) => {

@@ -6,7 +6,7 @@ const HomeLanding = () => {
     <div className="">
       <Navbar loggedin="true" />
       <Menu landing="true"/>
-      <section className="text-gray-100 body-font mt-5 mx-auto l-0 rounded-2xl bg-slate-300 w-[90%]">
+      <section className="text-slate-200 body-font mt-5 mx-auto l-0 rounded-2xl bg-slate-400 w-[90%]">
         <div className="container px-5 py-24 mx-auto ">
           <div className="flex flex-col text-center w-full mb-20">
             <h2 className="text-xl text-slate-700 tracking-widest font-medium title-font mb-1">HOME</h2>
